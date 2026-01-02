@@ -1,3 +1,16 @@
 {
-    "fullName": "Prueba"
+    "fullName": "Viberth Eduardo Gonzalez",
+    "emailUser": "Crucior",
+    "emailDomain": "outlook.com",
+    "phone": "+506 83209884",
+    "location": "Alajuela, AJ",
+    "linkText": "Linkedin",
+    "linkUrl": "https://www.linkedin.com/in/vibertheduardo/",
+    "skillsSectionTitle": "TECHNICAL SKILLS",
+    "skills": [
+        {
+            "title": "Languages & Frameworks",
+            "description": "Python, JavaScript, Selenium, Pandas, Tkinter, OpenPyXL"
+        }
+    ]
 }

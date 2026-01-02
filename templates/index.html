@@ -5,43 +5,388 @@
     <!-- Left Column: Preview -->
     <div class="cv-preview-pane" id="cvPreview">
         <div style="text-align: center; margin-top: 2rem;">
-            <h1 id="previewName" style="font-size: 2.5rem; color: #333;">Tu Nombre</h1>
-            <!-- Add more preview elements here as we expand -->
+            <h1 id="previewName" style="font-size: 2.5rem; color: #333; margin-bottom: 0.5rem;">Tu Nombre</h1>
+            <div id="previewContact"
+                style="font-size: 0.9rem; color: #666; margin-bottom: 2rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+                <!-- Contact info will be dynamically inserted here -->
+            </div>
+
+            <!-- Línea horizontal separadora -->
+            <hr style="border: none; border-top: 2px solid #2c3e50; margin: 2rem 0;">
+
+            <!-- Technical Skills Preview -->
+            <div id="previewSkillsSection" style="text-align: left; display: none;">
+                <h2 id="previewSkillsTitle"
+                    style="font-size: 1.2rem; color: #2c3e50; font-weight: bold; margin-bottom: 1rem;">TECHNICAL SKILLS
+                </h2>
+                <div id="previewSkills" style="padding-left: 0; color: #333;">
+                    <!-- Skills will be dynamically inserted here -->
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Right Column: Editor -->
-    <div class="cv-editor-pane">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="margin: 0;">Editar Datos</h2>
-            <span id="saveStatus" class="text-muted" style="font-size: 0.9rem;"></span>
+    <div class="cv-editor-wrapper">
+        <!-- Editor Card with Tabs -->
+        <div class="cv-editor-pane">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 style="margin: 0;">Editar Datos</h2>
+                <span id="saveStatus" class="text-muted" style="font-size: 0.9rem;"></span>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="personal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Información Personal
+                </button>
+                <button class="tab-btn" data-tab="skills">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    Habilidades Técnicas
+                </button>
+            </div>
+
+            <!-- Tab Content Container -->
+            <div class="tab-content-container">
+                <!-- Personal Information Tab -->
+                <div class="tab-content active" id="personalTab">
+                    <div class="form-group">
+                        <label for="fullName">Nombre Completo</label>
+                        <input type="text" id="fullName" placeholder="Ingresa tu nombre completo" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailUser">Correo Electrónico</label>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="text" id="emailUser" placeholder="nombre" style="flex: 1;" />
+                            <span style="color: var(--text-primary); font-weight: 500;">@</span>
+                            <select id="emailDomain"
+                                style="flex: 1; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--bg-color); color: var(--text-primary); font-size: 1rem;">
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="outlook.com">outlook.com</option>
+                                <option value="hotmail.com">hotmail.com</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" placeholder="+52 123 456 7890" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Ubicación</label>
+                        <input type="text" id="location" placeholder="Ciudad, País" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkText">Sitio Web / LinkedIn</label>
+                        <input type="text" id="linkText" placeholder="LinkedIn" />
+                        <input type="url" id="linkUrl" placeholder="https://linkedin.com/in/tu-perfil"
+                            style="margin-top: 0.5rem;" />
+                    </div>
+                </div>
+
+                <!-- Technical Skills Tab -->
+                <div class="tab-content" id="skillsTab">
+                    <!-- Section Title Field -->
+                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                        <label for="skillsSectionTitle">Título de la Sección</label>
+                        <input type="text" id="skillsSectionTitle" placeholder="TECHNICAL SKILLS"
+                            style="font-weight: 600; text-transform: uppercase;" />
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 0.75rem 0;">
+
+                    <div style="margin-bottom: 0.5rem;">
+                        <p class="text-muted" style="font-size: 0.9rem;">Agrega hasta 5 habilidades técnicas</p>
+                    </div>
+
+                    <div class="skills-scroll-container">
+                        <div id="skillsContainer">
+                            <!-- Skills will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <button class="btn-add-skill" id="addSkillBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Agregar Habilidad
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="fullName">Nombre Completo</label>
-            <input type="text" id="fullName" placeholder="Ingresa tu nombre completo" />
-        </div>
+        <!-- Action Buttons Card (Separate) -->
+        <div class="cv-actions-card">
+            <button class="btn-primary" id="saveBtn" style="flex: 1;">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Guardar Cambios
+                </span>
+            </button>
 
-        <button class="btn-primary" id="saveBtn">
-            <span style="display: flex; align-items: center; gap: 0.5rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                    <polyline points="7 3 7 8 15 8"></polyline>
-                </svg>
-                Guardar Cambios
-            </span>
-        </button>
+            <button class="btn-secondary" id="generatePdfBtn" style="flex: 1;">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Generar PDF
+                </span>
+            </button>
+        </div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const fullNameInput = document.getElementById('fullName');
+        const emailUserInput = document.getElementById('emailUser');
+        const emailDomainSelect = document.getElementById('emailDomain');
+        const phoneInput = document.getElementById('phone');
+        const locationInput = document.getElementById('location');
+        const linkTextInput = document.getElementById('linkText');
+        const linkUrlInput = document.getElementById('linkUrl');
+
         const previewName = document.getElementById('previewName');
+        const previewContact = document.getElementById('previewContact');
         const saveBtn = document.getElementById('saveBtn');
+        const generatePdfBtn = document.getElementById('generatePdfBtn');
         const saveStatus = document.getElementById('saveStatus');
+
+        const skillsContainer = document.getElementById('skillsContainer');
+        const addSkillBtn = document.getElementById('addSkillBtn');
+        const skillsSectionTitleInput = document.getElementById('skillsSectionTitle');
+
+        let skillsCount = 0;
+        const MAX_SKILLS = 5;
+
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Function to switch tabs
+        function switchTab(targetTab) {
+            // Remove active class from all tabs and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab and corresponding content
+            const targetBtn = document.querySelector(`.tab-btn[data-tab="${targetTab}"]`);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+                document.getElementById(targetTab + 'Tab').classList.add('active');
+
+                // Save to localStorage
+                localStorage.setItem('activeTab', targetTab);
+            }
+        }
+
+        // Restore last active tab from localStorage
+        const savedTab = localStorage.getItem('activeTab');
+        if (savedTab) {
+            switchTab(savedTab);
+        }
+
+        // Add click event listeners to tab buttons
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+                switchTab(targetTab);
+            });
+        });
+
+        // Skills Management
+        function createSkillInput(title = '', description = '') {
+            const skillId = `skill_${Date.now()}_${Math.random()}`;
+            const skillDiv = document.createElement('div');
+            skillDiv.className = 'skill-input-group';
+            skillDiv.innerHTML = `
+                <input type="text" class="skill-title-input" data-skill-id="${skillId}" 
+                       placeholder="Título (ej: Languages & Frameworks)" value="${title}" 
+                       style="font-weight: 600; padding: 0.6rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--card-bg); color: var(--text-primary); font-size: 0.9rem; width: 35%;" />
+                <input type="text" class="skill-description-input" data-skill-id="${skillId}" 
+                       placeholder="Descripción (ej: Python, JavaScript, Selenium...)" value="${description}"
+                       style="padding: 0.6rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--card-bg); color: var(--text-primary); font-size: 0.9rem; flex: 1;" />
+                <button class="btn-remove-skill" data-skill-id="${skillId}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `;
+
+            skillsContainer.appendChild(skillDiv);
+            skillsCount++;
+
+            // Update button state
+            updateAddSkillButton();
+
+            // Add event listener to remove button
+            const removeBtn = skillDiv.querySelector('.btn-remove-skill');
+            removeBtn.addEventListener('click', () => {
+                skillDiv.remove();
+                skillsCount--;
+                updateAddSkillButton();
+                updateSkillsPreview();
+                saveStatus.textContent = "Cambios sin guardar...";
+            });
+
+            // Add input listeners
+            const titleInput = skillDiv.querySelector('.skill-title-input');
+            const descInput = skillDiv.querySelector('.skill-description-input');
+
+            titleInput.addEventListener('input', () => {
+                updateSkillsPreview();
+                saveStatus.textContent = "Cambios sin guardar...";
+            });
+
+            descInput.addEventListener('input', () => {
+                updateSkillsPreview();
+                saveStatus.textContent = "Cambios sin guardar...";
+            });
+
+            return skillDiv;
+        }
+
+        function updateAddSkillButton() {
+            if (skillsCount >= MAX_SKILLS) {
+                addSkillBtn.disabled = true;
+                addSkillBtn.style.opacity = '0.5';
+                addSkillBtn.style.cursor = 'not-allowed';
+            } else {
+                addSkillBtn.disabled = false;
+                addSkillBtn.style.opacity = '1';
+                addSkillBtn.style.cursor = 'pointer';
+            }
+        }
+
+        addSkillBtn.addEventListener('click', () => {
+            if (skillsCount < MAX_SKILLS) {
+                createSkillInput();
+                updateSkillsPreview();
+                saveStatus.textContent = "Cambios sin guardar...";
+            }
+        });
+
+        // Function to get all skills
+        function getAllSkills() {
+            const skillGroups = document.querySelectorAll('.skill-input-group');
+            const skills = [];
+            skillGroups.forEach(group => {
+                const titleInput = group.querySelector('.skill-title-input');
+                const descInput = group.querySelector('.skill-description-input');
+
+                const title = titleInput ? titleInput.value.trim() : '';
+                const description = descInput ? descInput.value.trim() : '';
+
+                // Solo agregar si al menos uno de los campos tiene contenido
+                if (title || description) {
+                    skills.push({
+                        title: title,
+                        description: description
+                    });
+                }
+            });
+            return skills;
+        }
+
+        // Function to update skills preview
+        function updateSkillsPreview() {
+            const skills = getAllSkills();
+            const previewSkillsSection = document.getElementById('previewSkillsSection');
+            const previewSkills = document.getElementById('previewSkills');
+            const previewSkillsTitle = document.getElementById('previewSkillsTitle');
+            const skillsSectionTitleInput = document.getElementById('skillsSectionTitle');
+
+            // Update section title
+            if (skillsSectionTitleInput && skillsSectionTitleInput.value.trim()) {
+                previewSkillsTitle.textContent = skillsSectionTitleInput.value.trim();
+            } else {
+                previewSkillsTitle.textContent = 'TECHNICAL SKILLS';
+            }
+
+            if (skills.length > 0) {
+                previewSkillsSection.style.display = 'block';
+                previewSkills.innerHTML = '';
+                skills.forEach(skill => {
+                    const skillDiv = document.createElement('div');
+                    skillDiv.style.marginBottom = '0.5rem';
+                    skillDiv.style.fontSize = '0.95rem';
+                    skillDiv.style.lineHeight = '1.5';
+
+                    // Crear el contenido en una sola línea
+                    let content = '';
+                    if (skill.title) {
+                        content += `<strong style="color: #2c3e50;">${skill.title}:</strong> `;
+                    }
+                    if (skill.description) {
+                        content += `<span style="color: #333;">${skill.description}</span>`;
+                    }
+
+                    skillDiv.innerHTML = content;
+                    previewSkills.appendChild(skillDiv);
+                });
+            } else {
+                previewSkillsSection.style.display = 'none';
+            }
+        }
+
+        // Función para actualizar el preview de contacto
+        function updateContactPreview() {
+            const contactParts = [];
+
+            // Email completo
+            if (emailUserInput.value) {
+                const fullEmail = `${emailUserInput.value}@${emailDomainSelect.value}`;
+                contactParts.push(`<span>${fullEmail}</span>`);
+            }
+
+            if (phoneInput.value) {
+                contactParts.push(`<span>${phoneInput.value}</span>`);
+            }
+
+            if (locationInput.value) {
+                contactParts.push(`<span>${locationInput.value}</span>`);
+            }
+
+            // Link con hipervínculo
+            if (linkTextInput.value && linkUrlInput.value) {
+                contactParts.push(`<span><a href="${linkUrlInput.value}" target="_blank" style="color: #2563eb; text-decoration: underline;">${linkTextInput.value}</a></span>`);
+            } else if (linkTextInput.value) {
+                contactParts.push(`<span>${linkTextInput.value}</span>`);
+            }
+
+            if (contactParts.length > 0) {
+                previewContact.innerHTML = contactParts.join('<span style="margin: 0 0.5rem;">|</span>');
+            } else {
+                previewContact.innerHTML = '<span style="color: #999;">Agrega tu información de contacto</span>';
+            }
+        }
 
         // Load initial data
         fetch('/get_cv_data')
@@ -53,20 +398,81 @@
                 } else {
                     previewName.textContent = "Tu Nombre";
                 }
+
+                // Cargar email dividido
+                if (data.emailUser) emailUserInput.value = data.emailUser;
+                if (data.emailDomain) emailDomainSelect.value = data.emailDomain;
+
+                if (data.phone) phoneInput.value = data.phone;
+                if (data.location) locationInput.value = data.location;
+
+                // Cargar link dividido
+                if (data.linkText) linkTextInput.value = data.linkText;
+                if (data.linkUrl) linkUrlInput.value = data.linkUrl;
+
+                // Load skills section title
+                if (data.skillsSectionTitle) {
+                    skillsSectionTitleInput.value = data.skillsSectionTitle;
+                }
+
+                // Load skills
+                if (data.skills && Array.isArray(data.skills)) {
+                    data.skills.forEach(skill => {
+                        if (typeof skill === 'object' && skill !== null) {
+                            // Nuevo formato: objeto con title y description
+                            createSkillInput(skill.title || '', skill.description || '');
+                        } else {
+                            // Formato antiguo: string simple (para compatibilidad)
+                            createSkillInput('', skill);
+                        }
+                    });
+                }
+
+                updateContactPreview();
+                updateSkillsPreview();
             })
             .catch(err => console.error('Error loading data:', err));
 
-        // Real-time preview update
+        // Real-time preview update for name
         fullNameInput.addEventListener('input', (e) => {
             const value = e.target.value;
             previewName.textContent = value || "Tu Nombre";
             saveStatus.textContent = "Cambios sin guardar...";
         });
 
+        // Real-time preview update for contact fields
+        [emailUserInput, emailDomainSelect, phoneInput, locationInput, linkTextInput, linkUrlInput].forEach(input => {
+            input.addEventListener('input', () => {
+                updateContactPreview();
+                saveStatus.textContent = "Cambios sin guardar...";
+            });
+            // Para el select, también escuchar el evento change
+            if (input.tagName === 'SELECT') {
+                input.addEventListener('change', () => {
+                    updateContactPreview();
+                    saveStatus.textContent = "Cambios sin guardar...";
+                });
+            }
+        });
+
+        // Real-time preview update for skills section title
+        skillsSectionTitleInput.addEventListener('input', () => {
+            updateSkillsPreview();
+            saveStatus.textContent = "Cambios sin guardar...";
+        });
+
         // Save Data
         saveBtn.addEventListener('click', () => {
             const data = {
-                fullName: fullNameInput.value
+                fullName: fullNameInput.value,
+                emailUser: emailUserInput.value,
+                emailDomain: emailDomainSelect.value,
+                phone: phoneInput.value,
+                location: locationInput.value,
+                linkText: linkTextInput.value,
+                linkUrl: linkUrlInput.value,
+                skillsSectionTitle: skillsSectionTitleInput.value || 'TECHNICAL SKILLS',
+                skills: getAllSkills()
             };
 
             saveStatus.textContent = "Guardando...";
@@ -94,6 +500,63 @@
                 })
                 .finally(() => {
                     saveBtn.disabled = false;
+                });
+        });
+
+        // Generate PDF
+        generatePdfBtn.addEventListener('click', () => {
+            const data = {
+                fullName: fullNameInput.value,
+                emailUser: emailUserInput.value,
+                emailDomain: emailDomainSelect.value,
+                phone: phoneInput.value,
+                location: locationInput.value,
+                linkText: linkTextInput.value,
+                linkUrl: linkUrlInput.value,
+                skillsSectionTitle: skillsSectionTitleInput.value || 'TECHNICAL SKILLS',
+                skills: getAllSkills()
+            };
+
+            generatePdfBtn.disabled = true;
+            const originalText = generatePdfBtn.querySelector('span').lastChild.textContent;
+            generatePdfBtn.querySelector('span').lastChild.textContent = ' Generando...';
+
+            fetch('/generate_pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al generar PDF');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    // Crear un enlace temporal para descargar el PDF
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'mi_cv.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+
+                    generatePdfBtn.querySelector('span').lastChild.textContent = ' ¡PDF Generado!';
+                    setTimeout(() => {
+                        generatePdfBtn.querySelector('span').lastChild.textContent = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Error generating PDF:', err);
+                    alert('Error al generar el PDF. Por favor, intenta de nuevo.');
+                    generatePdfBtn.querySelector('span').lastChild.textContent = originalText;
+                })
+                .finally(() => {
+                    generatePdfBtn.disabled = false;
                 });
         });
     });
