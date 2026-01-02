@@ -1,14 +1,101 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card">
-    <h2>Panel Principal</h2>
-    <p>Esta es el área de contenido principal. Selecciona una opción del menú lateral para comenzar a trabajar en tu CV.
-    </p>
-    <br>
-    <div
-        style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; color: #1e40af;">
-        <strong>Tip:</strong> Todo está listo para empezar a programar la lógica en Python.
+<div class="cv-builder-container">
+    <!-- Left Column: Preview -->
+    <div class="cv-preview-pane" id="cvPreview">
+        <div style="text-align: center; margin-top: 2rem;">
+            <h1 id="previewName" style="font-size: 2.5rem; color: #333;">Tu Nombre</h1>
+            <!-- Add more preview elements here as we expand -->
+        </div>
+    </div>
+
+    <!-- Right Column: Editor -->
+    <div class="cv-editor-pane">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0;">Editar Datos</h2>
+            <span id="saveStatus" class="text-muted" style="font-size: 0.9rem;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="fullName">Nombre Completo</label>
+            <input type="text" id="fullName" placeholder="Ingresa tu nombre completo" />
+        </div>
+
+        <button class="btn-primary" id="saveBtn">
+            <span style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                Guardar Cambios
+            </span>
+        </button>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fullNameInput = document.getElementById('fullName');
+        const previewName = document.getElementById('previewName');
+        const saveBtn = document.getElementById('saveBtn');
+        const saveStatus = document.getElementById('saveStatus');
+
+        // Load initial data
+        fetch('/get_cv_data')
+            .then(response => response.json())
+            .then(data => {
+                if (data.fullName) {
+                    fullNameInput.value = data.fullName;
+                    previewName.textContent = data.fullName;
+                } else {
+                    previewName.textContent = "Tu Nombre";
+                }
+            })
+            .catch(err => console.error('Error loading data:', err));
+
+        // Real-time preview update
+        fullNameInput.addEventListener('input', (e) => {
+            const value = e.target.value;
+            previewName.textContent = value || "Tu Nombre";
+            saveStatus.textContent = "Cambios sin guardar...";
+        });
+
+        // Save Data
+        saveBtn.addEventListener('click', () => {
+            const data = {
+                fullName: fullNameInput.value
+            };
+
+            saveStatus.textContent = "Guardando...";
+            saveBtn.disabled = true;
+
+            fetch('/save_cv_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        saveStatus.textContent = "¡Guardado!";
+                        setTimeout(() => { saveStatus.textContent = ""; }, 2000);
+                    } else {
+                        saveStatus.textContent = "Error al guardar";
+                    }
+                })
+                .catch(err => {
+                    console.error('Error saving:', err);
+                    saveStatus.textContent = "Error de conexión";
+                })
+                .finally(() => {
+                    saveBtn.disabled = false;
+                });
+        });
+    });
+</script>
 {% endblock %}
