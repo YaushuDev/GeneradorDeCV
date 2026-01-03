@@ -11,6 +11,67 @@
         {
             "title": "Languages & Frameworks",
             "description": "Python, JavaScript, Selenium, Pandas, Tkinter, OpenPyXL"
+        },
+        {
+            "title": "Databases",
+            "description": "MySQL, PostgreSQL"
+        },
+        {
+            "title": "Version Control & Deployment",
+            "description": "Git, GitHub"
+        },
+        {
+            "title": "Methodologies",
+            "description": "Agile / Scrum, technical documentation, user-centered design"
+        },
+        {
+            "title": "Automation & Integration",
+            "description": "Email automation (SMTP/IMAP, smtplib, imaplib), Excel and file parsing, API integration, data extraction & web scraping, scheduled task execution (Windows Task Scheduler)"
         }
-    ]
+    ],
+    "experience": [
+        {
+            "company": "Fruno",
+            "position": "Lead Automation Engineer",
+            "duration": "2023 - Present",
+            "responsibilities": [
+                "Designed and implemented over 20 process-automation bots across finance, logistics, and operations, fully in Python.",
+                "Built a bank account parser bot that reads, classifies, and summarizes transaction emails into Excel reports sent three times per day, saving over 300 hours per month.",
+                "Created a mass file-download automation handling up to 5,000 files per day, cutting 80 hours of manual work weekly and reducing the workload from three employees to one.",
+                "Led requirement gathering and UX alignment across three departments, ensuring automations felt natural and integrated into users' workflows.",
+                "Connected multiple automations to databases for dynamic reading and writing, daily metric generation, and alert systems."
+            ]
+        },
+        {
+            "company": "Rhiscom",
+            "position": "Test Automation Engineer (Walmart Project)",
+            "duration": "2020 - 2023",
+            "responsibilities": [
+                "Led the end-to-end automation of checkout system test flows for Walmart stores in Costa Rica, Guatemala, El Salvador, Honduras, and Nicaragua, ensuring consistency and reliability across regional operations.",
+                "Developed and maintained automated test cases that replicated real cash register scenarios — scanning items, applying discounts, processing payments, and validating error handling under different configurations.",
+                "Produced detailed documentation of test flows, bug reports, and technical recommendations for system improvements, directly supporting Walmart’s QA and DevOps teams.",
+                "Collaborated with international teams under tight deadlines, delivering measurable quality improvements across multiple production environments."
+            ]
+        }
+    ],
+    "educationSectionTitle": "EDUCATION",
+    "education": [
+        {
+            "institution": "Cenfotec",
+            "degree": "Software Development Technician",
+            "date": "2024 - 2025",
+            "description": "Extracurricular Activities: Active member of the Computer Science Club; participated in coding competitions and hackathons, achieving top rankings in several events."
+        }
+    ],
+    "fontSizes": {
+        "name": 2.5,
+        "contact": 0.9,
+        "sectionTitle": 1.15,
+        "skillsContent": 0.9,
+        "experienceCompany": 1,
+        "experiencePosition": 0.95,
+        "experienceDuration": 0.9,
+        "experienceBullet": 0.9
+    },
+    "fontFamily": "Helvetica"
 }

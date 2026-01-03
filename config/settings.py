@@ -20,7 +20,7 @@ class Config:
     PDF_MARGINS = {
         'right': 72,
         'left': 72,
-        'top': 36,
+        'top': 18,
         'bottom': 18
     }
     

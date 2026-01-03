@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="cv-builder-container">
+    <!-- Left Column: Preview -->
+    <div class="cv-preview-pane" id="cvPreview">
+        <div style="text-align: center; margin-top: 2rem;">
+            <h1 id="previewName" style="font-size: 2.5rem; color: #333; margin-bottom: 0.5rem;">Tu Nombre</h1>
+            <div id="previewContact"
+                style="font-size: 0.9rem; color: #666; margin-bottom: 2rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+                <!-- Contact info will be dynamically inserted here -->
+            </div>
+
+            <!-- Línea horizontal separadora -->
+            <hr style="border: none; border-top: 2px solid #2c3e50; margin: 2rem 0;">
+
+            <!-- Technical Skills Preview -->
+            <div id="previewSkillsSection" style="text-align: left; display: none;">
+                <h2 id="previewSkillsTitle" class="cv-section-title">TECHNICAL SKILLS</h2>
+                <div id="previewSkills" style="padding-left: 0; color: #333;">
+                    <!-- Skills will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Work Experience Preview -->
+            <div id="previewExperienceSection" style="text-align: left; display: none; margin-top: 0.5rem;">
+                <h2 id="previewExperienceTitle" class="cv-section-title">WORK EXPERIENCE</h2>
+                <div id="previewExperience" style="padding-left: 0; color: #333;">
+                    <!-- Experience will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Education Preview -->
+            <div id="previewEducationSection" style="text-align: left; display: none; margin-top: 0.5rem;">
+                <h2 id="previewEducationTitle" class="cv-section-title">EDUCATION</h2>
+                <div id="previewEducation" style="padding-left: 0; color: #333;">
+                    <!-- Education will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Editor -->
+    <div class="cv-editor-wrapper">
+        <!-- Editor Card with Tabs -->
+        <div class="cv-editor-pane">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 style="margin: 0;">Editar Datos</h2>
+                <span id="saveStatus" class="text-muted" style="font-size: 0.9rem;"></span>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="personal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Información Personal
+                </button>
+                <button class="tab-btn" data-tab="skills">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    Habilidades Técnicas
+                </button>
+                <button class="tab-btn" data-tab="experience">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    Experiencia
+                </button>
+                <button class="tab-btn" data-tab="education">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    Educación
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M12 1v6m0 6v6m5.196-13.196l-4.242 4.242m-2.828 2.828l-4.242 4.242M23 12h-6m-6 0H1m18.196 5.196l-4.242-4.242m-2.828-2.828l-4.242-4.242">
+                        </path>
+                    </svg>
+                    Ajustes
+                </button>
+            </div>
+
+            <!-- Tab Content Container -->
+            <div class="tab-content-container">
+                <!-- Personal Information Tab -->
+                <div class="tab-content active" id="personalTab">
+                    <div class="form-group">
+                        <label for="fullName">Nombre Completo</label>
+                        <input type="text" id="fullName" placeholder="Ingresa tu nombre completo" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailUser">Correo Electrónico</label>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="text" id="emailUser" placeholder="nombre" style="flex: 1;" />
+                            <span style="color: var(--text-primary); font-weight: 500;">@</span>
+                            <select id="emailDomain"
+                                style="flex: 1; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--bg-color); color: var(--text-primary); font-size: 1rem;">
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="outlook.com">outlook.com</option>
+                                <option value="hotmail.com">hotmail.com</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" placeholder="+52 123 456 7890" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Ubicación</label>
+                        <input type="text" id="location" placeholder="Ciudad, País" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkText">Sitio Web / LinkedIn</label>
+                        <input type="text" id="linkText" placeholder="LinkedIn" />
+                        <input type="url" id="linkUrl" placeholder="https://linkedin.com/in/tu-perfil"
+                            style="margin-top: 0.5rem;" />
+                    </div>
+                </div>
+
+                <!-- Technical Skills Tab -->
+                <div class="tab-content" id="skillsTab">
+                    <!-- Section Title Field -->
+                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                        <label for="skillsSectionTitle">Título de la Sección</label>
+                        <input type="text" id="skillsSectionTitle" placeholder="TECHNICAL SKILLS"
+                            style="font-weight: 600; text-transform: uppercase;" />
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 0.75rem 0;">
+
+                    <div style="margin-bottom: 0.5rem;">
+                        <p class="text-muted" style="font-size: 0.9rem;">Agrega hasta 5 habilidades técnicas</p>
+                    </div>
+
+                    <div class="skills-scroll-container">
+                        <div id="skillsContainer">
+                            <!-- Skills will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <button class="btn-add-skill" id="addSkillBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Agregar Habilidad
+                    </button>
+                </div>
+
+                <!-- Work Experience Tab -->
+                <div class="tab-content" id="experienceTab">
+                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                        <label for="experienceSectionTitle">Título de la Sección</label>
+                        <input type="text" id="experienceSectionTitle" placeholder="WORK EXPERIENCE"
+                            style="font-weight: 600; text-transform: uppercase;" />
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 0.75rem 0;">
+
+                    <div class="experience-scroll-container">
+                        <div id="experienceContainer" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <!-- Experience entries will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <button class="btn-add-skill" id="addExperienceBtn" style="margin-top: 1rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Agregar Experiencia
+                    </button>
+                </div>
+
+                <!-- Education Tab (Same design as Skills) -->
+                <div class="tab-content" id="educationTab">
+                    <!-- Section Title Field -->
+                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                        <label for="educationSectionTitle">Título de la Sección</label>
+                        <input type="text" id="educationSectionTitle" placeholder="EDUCATION"
+                            style="font-weight: 600; text-transform: uppercase;" />
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 0.75rem 0;">
+
+                    <div style="margin-bottom: 0.5rem;">
+                        <p class="text-muted" style="font-size: 0.9rem;">Agrega tus antecedentes académicos</p>
+                    </div>
+
+                    <div class="skills-scroll-container">
+                        <div id="educationContainer">
+                            <!-- Education items will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <button class="btn-add-skill" id="addEducationBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Agregar Educación
+                    </button>
+                </div>
+
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settingsTab">
+                    <div style="margin-bottom: 1rem;">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);">⚙️ Ajustes de
+                            Tipografía</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">Personaliza los tamaños de fuente del CV</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="globalFontFamily">Tipografía Global</label>
+                        <select id="globalFontFamily"
+                            style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--bg-color); color: var(--text-primary); font-size: 1rem;">
+                            <option value="Helvetica">Moderna (Sans-Serif)</option>
+                            <option value="Times-Roman">Clásica (Serif)</option>
+                            <option value="Courier">Técnica (Monospace)</option>
+                            <option value="Georgia">Elegante (Serif)</option>
+                        </select>
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1rem 0;">
+
+                    <!-- Name Size -->
+                    <div class="form-group">
+                        <label for="nameFontSize">
+                            Tamaño del Nombre
+                            <span id="nameFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">2.5rem</span>
+                        </label>
+                        <input type="range" id="nameFontSize" min="1.5" max="4" step="0.1" value="2.5"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Contact Size -->
+                    <div class="form-group">
+                        <label for="contactFontSize">
+                            Tamaño de Contacto
+                            <span id="contactFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                        </label>
+                        <input type="range" id="contactFontSize" min="0.7" max="1.3" step="0.05" value="0.9"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Section Title Size -->
+                    <div class="form-group">
+                        <label for="sectionTitleFontSize">
+                            Tamaño de Títulos de Sección
+                            <span id="sectionTitleFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">1.2rem</span>
+                        </label>
+                        <input type="range" id="sectionTitleFontSize" min="0.9" max="2" step="0.05" value="1.2"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Skills Content Size -->
+                    <div class="form-group">
+                        <label for="skillsContentFontSize">
+                            Tamaño de Habilidades (Contenido)
+                            <span id="skillsContentFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
+                        </label>
+                        <input type="range" id="skillsContentFontSize" min="0.7" max="1.3" step="0.05" value="0.95"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Experience Company Size -->
+                    <div class="form-group">
+                        <label for="experienceCompanyFontSize">
+                            Tamaño de Empresa (Experiencia)
+                            <span id="experienceCompanyFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">1rem</span>
+                        </label>
+                        <input type="range" id="experienceCompanyFontSize" min="0.8" max="1.5" step="0.05" value="1"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Experience Position Size -->
+                    <div class="form-group">
+                        <label for="experiencePositionFontSize">
+                            Tamaño de Puesto (Experiencia)
+                            <span id="experiencePositionFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
+                        </label>
+                        <input type="range" id="experiencePositionFontSize" min="0.7" max="1.3" step="0.05" value="0.95"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Experience Duration Size -->
+                    <div class="form-group">
+                        <label for="experienceDurationFontSize">
+                            Tamaño de Duración (Experiencia)
+                            <span id="experienceDurationFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                        </label>
+                        <input type="range" id="experienceDurationFontSize" min="0.7" max="1.2" step="0.05" value="0.9"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <!-- Experience Bullet Points Size -->
+                    <div class="form-group">
+                        <label for="experienceBulletFontSize">
+                            Tamaño de Puntos Clave (Experiencia)
+                            <span id="experienceBulletFontSizeValue"
+                                style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                        </label>
+                        <input type="range" id="experienceBulletFontSize" min="0.7" max="1.2" step="0.05" value="0.9"
+                            style="width: 100%; cursor: pointer;">
+                    </div>
+
+                    <hr
+                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1.5rem 0;">
+
+                    <button id="resetFontSizes" class="btn-add-skill" style="background: #ef4444;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                        Restaurar Valores Predeterminados
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Card (Separate) -->
+        <div class="cv-actions-card">
+            <button class="btn-primary" id="saveBtn" style="flex: 1;">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Guardar Cambios
+                </span>
+            </button>
+
+            <button class="btn-secondary" id="generatePdfBtn" style="flex: 1;">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Generar PDF
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% endblock %}

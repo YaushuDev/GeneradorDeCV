@@ -14,16 +14,7 @@
     --transition-speed: 0.3s;
 }
 
-[data-theme="dark"] {
-    --bg-color: #111827;
-    --sidebar-bg: #7c3aed;
-    /* Purple (Violet-600) */
-    --text-primary: #f9fafb;
-    --text-secondary: #9ca3af;
-    --card-bg: #1f2937;
-    --sidebar-hover: #5b21b6;
-    /* Violet-800 */
-}
+
 
 * {
     box-sizing: border-box;
@@ -374,6 +365,33 @@ h1 {
     background: var(--sidebar-bg);
 }
 
+/* Experience Scroll Container */
+.experience-scroll-container {
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.experience-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.experience-scroll-container::-webkit-scrollbar-track {
+    background: var(--bg-color);
+    border-radius: 3px;
+}
+
+.experience-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--text-secondary);
+    border-radius: 3px;
+}
+
+.experience-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--sidebar-bg);
+}
+
 .skill-input {
     flex: 1;
     padding: 0.75rem;
@@ -522,4 +540,60 @@ h1 {
 
 .btn-secondary:hover {
     background-color: #059669;
+}
+
+/* CV Section Titles */
+.cv-section-title {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Range Input Styles */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: var(--bg-color);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+input[type="range"]:hover {
+    background: #d1d5db;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--sidebar-bg);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--sidebar-bg);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.2);
 }

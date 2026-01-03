@@ -3,6 +3,7 @@ Rutas relacionadas con el CV.
 Maneja las peticiones HTTP para el generador de CV.
 """
 from flask import Blueprint, render_template, request, jsonify, send_file
+import traceback
 from services.data_service import DataService
 from services.pdf_service import PDFService
 from models.cv_data import CVData
@@ -19,7 +20,7 @@ pdf_service = PDFService(Config)
 @cv_bp.route('/')
 def home():
     """Página principal del generador de CV."""
-    return render_template('index.html', title="Generador de CV")
+    return render_template('generator.html', title="Generador de CV")
 
 
 @cv_bp.route('/get_cv_data', methods=['GET'])
@@ -60,8 +61,11 @@ def generate_pdf():
         data = request.json
         cv_data = CVData.from_dict(data)
         
-        # Generar PDF
-        buffer = pdf_service.generate(cv_data)
+        # Extraer font sizes si existen
+        font_sizes = data.get('fontSizes', None)
+        
+        # Generar PDF con font sizes personalizados
+        buffer = pdf_service.generate(cv_data, font_sizes)
         
         # Enviar archivo
         return send_file(
@@ -73,4 +77,5 @@ def generate_pdf():
     
     except Exception as e:
         print(f"Error generating PDF: {e}")
+        traceback.print_exc()
         return jsonify({"success": False, "error": str(e)}), 500
