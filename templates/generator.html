@@ -229,125 +229,213 @@
 
                 <!-- Settings Tab -->
                 <div class="tab-content" id="settingsTab">
-                    <div style="margin-bottom: 1rem;">
-                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);">⚙️ Ajustes de
-                            Tipografía</h3>
-                        <p class="text-muted" style="font-size: 0.9rem;">Personaliza los tamaños de fuente del CV</p>
+                    <!-- Sub-tab Navigation -->
+                    <div class="sub-tab-navigation">
+                        <button class="sub-tab-btn active" data-subtab="typography">
+                            📝 Tipografía
+                        </button>
+                        <button class="sub-tab-btn" data-subtab="education">
+                            🎓 Educación
+                        </button>
                     </div>
 
-                    <div class="form-group">
-                        <label for="globalFontFamily">Tipografía Global</label>
-                        <select id="globalFontFamily"
-                            style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--bg-color); color: var(--text-primary); font-size: 1rem;">
-                            <option value="Helvetica">Moderna (Sans-Serif)</option>
-                            <option value="Times-Roman">Clásica (Serif)</option>
-                            <option value="Courier">Técnica (Monospace)</option>
-                            <option value="Georgia">Elegante (Serif)</option>
-                        </select>
+                    <!-- Typography Sub-tab -->
+                    <div class="sub-tab-content active" id="typographySubTab">
+                        <div style="margin-bottom: 1rem;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);">⚙️ Ajustes
+                                de
+                                Tipografía</h3>
+                            <p class="text-muted" style="font-size: 0.9rem;">Personaliza los tamaños de fuente del CV
+                            </p>
+                        </div>
+
+                        <div class="settings-scroll-container">
+                            <div class="form-group">
+                                <label for="globalFontFamily">Tipografía Global</label>
+                                <select id="globalFontFamily"
+                                    style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--text-secondary); background-color: var(--bg-color); color: var(--text-primary); font-size: 1rem;">
+                                    <option value="Helvetica">Moderna (Sans-Serif)</option>
+                                    <option value="Times-Roman">Clásica (Serif)</option>
+                                    <option value="Courier">Técnica (Monospace)</option>
+                                    <option value="Georgia">Elegante (Serif)</option>
+                                </select>
+                            </div>
+
+                            <hr
+                                style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1rem 0;">
+
+                            <!-- Name Size -->
+                            <div class="form-group">
+                                <label for="nameFontSize">
+                                    Tamaño del Nombre
+                                    <span id="nameFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">2.5rem</span>
+                                </label>
+                                <input type="range" id="nameFontSize" min="1.5" max="4" step="0.1" value="2.5"
+                                    style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Contact Size -->
+                            <div class="form-group">
+                                <label for="contactFontSize">
+                                    Tamaño de Contacto
+                                    <span id="contactFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                                </label>
+                                <input type="range" id="contactFontSize" min="0.7" max="1.3" step="0.05" value="0.9"
+                                    style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Section Title Size -->
+                            <div class="form-group">
+                                <label for="sectionTitleFontSize">
+                                    Tamaño de Títulos de Sección
+                                    <span id="sectionTitleFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">1.2rem</span>
+                                </label>
+                                <input type="range" id="sectionTitleFontSize" min="0.9" max="2" step="0.05" value="1.2"
+                                    style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Skills Content Size -->
+                            <div class="form-group">
+                                <label for="skillsContentFontSize">
+                                    Tamaño de Habilidades (Contenido)
+                                    <span id="skillsContentFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
+                                </label>
+                                <input type="range" id="skillsContentFontSize" min="0.7" max="1.3" step="0.05"
+                                    value="0.95" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Experience Company Size -->
+                            <div class="form-group">
+                                <label for="experienceCompanyFontSize">
+                                    Tamaño de Empresa (Experiencia)
+                                    <span id="experienceCompanyFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">1rem</span>
+                                </label>
+                                <input type="range" id="experienceCompanyFontSize" min="0.8" max="1.5" step="0.05"
+                                    value="1" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Experience Position Size -->
+                            <div class="form-group">
+                                <label for="experiencePositionFontSize">
+                                    Tamaño de Puesto (Experiencia)
+                                    <span id="experiencePositionFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
+                                </label>
+                                <input type="range" id="experiencePositionFontSize" min="0.7" max="1.3" step="0.05"
+                                    value="0.95" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Experience Duration Size -->
+                            <div class="form-group">
+                                <label for="experienceDurationFontSize">
+                                    Tamaño de Duración (Experiencia)
+                                    <span id="experienceDurationFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                                </label>
+                                <input type="range" id="experienceDurationFontSize" min="0.7" max="1.2" step="0.05"
+                                    value="0.9" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Experience Bullet Points Size -->
+                            <div class="form-group">
+                                <label for="experienceBulletFontSize">
+                                    Tamaño de Puntos Clave (Experiencia)
+                                    <span id="experienceBulletFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                                </label>
+                                <input type="range" id="experienceBulletFontSize" min="0.7" max="1.2" step="0.05"
+                                    value="0.9" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <hr
+                                style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1.5rem 0;">
+
+                            <button id="resetFontSizes" class="btn-add-skill" style="background: #ef4444;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="1 4 1 10 7 10"></polyline>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                                </svg>
+                                Restaurar Valores Predeterminados
+                            </button>
+                        </div>
                     </div>
 
-                    <hr
-                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1rem 0;">
+                    <!-- Education Sub-tab -->
+                    <div class="sub-tab-content" id="educationSubTab">
+                        <div style="margin-bottom: 1rem;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);">🎓 Ajustes
+                                de
+                                Educación</h3>
+                            <p class="text-muted" style="font-size: 0.9rem;">Personaliza los tamaños de fuente de la
+                                sección de educación</p>
+                        </div>
 
-                    <!-- Name Size -->
-                    <div class="form-group">
-                        <label for="nameFontSize">
-                            Tamaño del Nombre
-                            <span id="nameFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">2.5rem</span>
-                        </label>
-                        <input type="range" id="nameFontSize" min="1.5" max="4" step="0.1" value="2.5"
-                            style="width: 100%; cursor: pointer;">
+                        <div class="settings-scroll-container">
+                            <!-- Education Institution Size -->
+                            <div class="form-group">
+                                <label for="educationInstitutionFontSize">
+                                    Tamaño de Institución
+                                    <span id="educationInstitutionFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
+                                </label>
+                                <input type="range" id="educationInstitutionFontSize" min="0.7" max="1.3" step="0.05"
+                                    value="0.95" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Education Degree Size -->
+                            <div class="form-group">
+                                <label for="educationDegreeFontSize">
+                                    Tamaño de Título/Grado
+                                    <span id="educationDegreeFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
+                                </label>
+                                <input type="range" id="educationDegreeFontSize" min="0.7" max="1.3" step="0.05"
+                                    value="0.95" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Education Date Size -->
+                            <div class="form-group">
+                                <label for="educationDateFontSize">
+                                    Tamaño de Fecha
+                                    <span id="educationDateFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.85rem</span>
+                                </label>
+                                <input type="range" id="educationDateFontSize" min="0.6" max="1.2" step="0.05"
+                                    value="0.85" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <!-- Education Description Size -->
+                            <div class="form-group">
+                                <label for="educationDescriptionFontSize">
+                                    Tamaño de Descripción
+                                    <span id="educationDescriptionFontSizeValue"
+                                        style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
+                                </label>
+                                <input type="range" id="educationDescriptionFontSize" min="0.7" max="1.2" step="0.05"
+                                    value="0.9" style="width: 100%; cursor: pointer;">
+                            </div>
+
+                            <hr
+                                style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1.5rem 0;">
+
+                            <button id="resetEducationFontSizes" class="btn-add-skill" style="background: #ef4444;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="1 4 1 10 7 10"></polyline>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                                </svg>
+                                Restaurar Valores Predeterminados
+                            </button>
+                        </div>
                     </div>
-
-                    <!-- Contact Size -->
-                    <div class="form-group">
-                        <label for="contactFontSize">
-                            Tamaño de Contacto
-                            <span id="contactFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
-                        </label>
-                        <input type="range" id="contactFontSize" min="0.7" max="1.3" step="0.05" value="0.9"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <!-- Section Title Size -->
-                    <div class="form-group">
-                        <label for="sectionTitleFontSize">
-                            Tamaño de Títulos de Sección
-                            <span id="sectionTitleFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">1.2rem</span>
-                        </label>
-                        <input type="range" id="sectionTitleFontSize" min="0.9" max="2" step="0.05" value="1.2"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <!-- Skills Content Size -->
-                    <div class="form-group">
-                        <label for="skillsContentFontSize">
-                            Tamaño de Habilidades (Contenido)
-                            <span id="skillsContentFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
-                        </label>
-                        <input type="range" id="skillsContentFontSize" min="0.7" max="1.3" step="0.05" value="0.95"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <!-- Experience Company Size -->
-                    <div class="form-group">
-                        <label for="experienceCompanyFontSize">
-                            Tamaño de Empresa (Experiencia)
-                            <span id="experienceCompanyFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">1rem</span>
-                        </label>
-                        <input type="range" id="experienceCompanyFontSize" min="0.8" max="1.5" step="0.05" value="1"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <!-- Experience Position Size -->
-                    <div class="form-group">
-                        <label for="experiencePositionFontSize">
-                            Tamaño de Puesto (Experiencia)
-                            <span id="experiencePositionFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">0.95rem</span>
-                        </label>
-                        <input type="range" id="experiencePositionFontSize" min="0.7" max="1.3" step="0.05" value="0.95"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <!-- Experience Duration Size -->
-                    <div class="form-group">
-                        <label for="experienceDurationFontSize">
-                            Tamaño de Duración (Experiencia)
-                            <span id="experienceDurationFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
-                        </label>
-                        <input type="range" id="experienceDurationFontSize" min="0.7" max="1.2" step="0.05" value="0.9"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <!-- Experience Bullet Points Size -->
-                    <div class="form-group">
-                        <label for="experienceBulletFontSize">
-                            Tamaño de Puntos Clave (Experiencia)
-                            <span id="experienceBulletFontSizeValue"
-                                style="color: var(--sidebar-bg); font-weight: 600;">0.9rem</span>
-                        </label>
-                        <input type="range" id="experienceBulletFontSize" min="0.7" max="1.2" step="0.05" value="0.9"
-                            style="width: 100%; cursor: pointer;">
-                    </div>
-
-                    <hr
-                        style="border: none; border-top: 1px solid var(--text-secondary); opacity: 0.2; margin: 1.5rem 0;">
-
-                    <button id="resetFontSizes" class="btn-add-skill" style="background: #ef4444;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="1 4 1 10 7 10"></polyline>
-                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                        </svg>
-                        Restaurar Valores Predeterminados
-                    </button>
                 </div>
             </div>
         </div>

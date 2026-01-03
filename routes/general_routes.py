@@ -18,3 +18,9 @@ def profile():
 def settings():
     """Página de configuración."""
     return render_template('page.html', title="Configuración", content="Ajustes y preferencias aquí.")
+
+
+@general_bp.route('/json-editor')
+def json_editor():
+    """Página del editor JSON."""
+    return render_template('json_editor.html', title="Editor JSON")

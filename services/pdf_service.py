@@ -160,6 +160,52 @@ class PDFStyleBuilder:
             fontName=self._get_font("normal")
         )
 
+    def get_education_institution_style(self) -> ParagraphStyle:
+        """Retorna el estilo para la institución educativa."""
+        font_size = self.font_sizes.get('educationInstitution', 0.95) * 12
+        return ParagraphStyle(
+            'EducationInstitution',
+            parent=self.base_styles['Normal'],
+            fontSize=font_size,
+            textColor=colors.HexColor('#2c3e50'),
+            fontName=self._get_font("bold")
+        )
+
+    def get_education_degree_style(self) -> ParagraphStyle:
+        """Retorna el estilo para el título/grado."""
+        font_size = self.font_sizes.get('educationDegree', 0.95) * 12
+        return ParagraphStyle(
+            'EducationDegree',
+            parent=self.base_styles['Normal'],
+            fontSize=font_size,
+            textColor=colors.HexColor('#333333'),
+            fontName=self._get_font("normal")
+        )
+
+    def get_education_date_style(self) -> ParagraphStyle:
+        """Retorna el estilo para la fecha."""
+        font_size = self.font_sizes.get('educationDate', 0.85) * 12
+        return ParagraphStyle(
+            'EducationDate',
+            parent=self.base_styles['Normal'],
+            fontSize=font_size,
+            textColor=colors.HexColor('#666666'),
+            fontName=self._get_font("italic")
+        )
+
+    def get_education_description_style(self) -> ParagraphStyle:
+        """Retorna el estilo para la descripción de educación."""
+        font_size = self.font_sizes.get('educationDescription', 0.9) * 12
+        return ParagraphStyle(
+            'EducationDescription',
+            parent=self.base_styles['Normal'],
+            fontSize=font_size,
+            textColor=colors.HexColor('#444444'),
+            leftIndent=12,
+            spaceAfter=6,
+            fontName=self._get_font("normal")
+        )
+
 
 class PDFContentBuilder:
     """Constructor de contenido para el PDF."""
@@ -301,37 +347,49 @@ class PDFContentBuilder:
         edu_title = Paragraph(cv_data.education_section_title, section_title_style)
         elements.append(edu_title)
         
-        # Education styles
-        # We reuse similar styling to skills but adapt to the 3-part layout
-        base_style = self.style_builder.get_skill_style()
-        base_style.spaceAfter = 2
+        # Get custom education styles
+        institution_style = self.style_builder.get_education_institution_style()
+        degree_style = self.style_builder.get_education_degree_style()
+        date_style = self.style_builder.get_education_date_style()
+        description_style = self.style_builder.get_education_description_style()
+        
+        # Base style for combined line
+        base_font_size = self.style_builder.font_sizes.get('educationInstitution', 0.95) * 12
+        combined_style = ParagraphStyle(
+            'EducationCombined',
+            parent=self.style_builder.base_styles['Normal'],
+            fontSize=base_font_size,
+            textColor=colors.HexColor('#2c3e50'),
+            spaceAfter=2,
+            fontName=self.style_builder._get_font("normal")
+        )
         
         for item in cv_data.education:
             # Line 1: Institution - Degree | Date
-            # Use a single paragraph with inline styling for the first line
-            
+            # Build with inline styling to respect individual font sizes
             line1_parts = []
-            if item.institution:
-                line1_parts.append(f"<b>{item.institution}</b>")
-            if item.degree:
-                line1_parts.append(f"{item.degree}")
-            if item.date:
-                # Add date potentially with different style or at end
-                # but user asked "todo en la misma linea"
-                line1_parts.append(f"<i>{item.date}</i>")
             
-            # Join with separators " - "
-            line1_text = " - ".join(line1_parts)
+            # Get font sizes
+            inst_size = self.style_builder.font_sizes.get('educationInstitution', 0.95) * 12
+            deg_size = self.style_builder.font_sizes.get('educationDegree', 0.95) * 12
+            date_size = self.style_builder.font_sizes.get('educationDate', 0.85) * 12
+            
+            if item.institution:
+                line1_parts.append(f'<b><font size="{inst_size}">{item.institution}</font></b>')
+            if item.degree:
+                line1_parts.append(f'<font size="{deg_size}">{item.degree}</font>')
+            if item.date:
+                line1_parts.append(f'<i><font size="{date_size}">{item.date}</font></i>')
+            
+            # Join with separators " | "
+            line1_text = " | ".join(line1_parts)
             
             if line1_text:
-                elements.append(Paragraph(line1_text, base_style))
+                elements.append(Paragraph(line1_text, combined_style))
                 
             # Line 2: Optional description with bullet
             if item.description:
-                # Use bullet style
-                bullet_style = self.style_builder.get_bullet_style()
-                # slightly adjusted indentation if needed, but bullet_style already has indentation
-                elements.append(Paragraph(f"• {item.description}", bullet_style))
+                elements.append(Paragraph(f"• {item.description}", description_style))
             
             # Spacer between items
             elements.append(Spacer(1, 0.05*inch))

@@ -49,7 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         experienceCompany: document.getElementById('experienceCompanyFontSize'),
         experiencePosition: document.getElementById('experiencePositionFontSize'),
         experienceDuration: document.getElementById('experienceDurationFontSize'),
-        experienceBullet: document.getElementById('experienceBulletFontSize')
+        experienceBullet: document.getElementById('experienceBulletFontSize'),
+        educationInstitution: document.getElementById('educationInstitutionFontSize'),
+        educationDegree: document.getElementById('educationDegreeFontSize'),
+        educationDate: document.getElementById('educationDateFontSize'),
+        educationDescription: document.getElementById('educationDescriptionFontSize')
     };
 
     const fontSizeValues = {
@@ -60,7 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
         experienceCompany: document.getElementById('experienceCompanyFontSizeValue'),
         experiencePosition: document.getElementById('experiencePositionFontSizeValue'),
         experienceDuration: document.getElementById('experienceDurationFontSizeValue'),
-        experienceBullet: document.getElementById('experienceBulletFontSizeValue')
+        experienceBullet: document.getElementById('experienceBulletFontSizeValue'),
+        educationInstitution: document.getElementById('educationInstitutionFontSizeValue'),
+        educationDegree: document.getElementById('educationDegreeFontSizeValue'),
+        educationDate: document.getElementById('educationDateFontSizeValue'),
+        educationDescription: document.getElementById('educationDescriptionFontSizeValue')
     };
 
     const resetFontSizesBtn = document.getElementById('resetFontSizes');
@@ -74,7 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
         experienceCompany: 1,
         experiencePosition: 0.95,
         experienceDuration: 0.9,
-        experienceBullet: 0.9
+        experienceBullet: 0.9,
+        educationInstitution: 0.95,
+        educationDegree: 0.95,
+        educationDate: 0.85,
+        educationDescription: 0.9
     };
 
 
@@ -102,6 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tab Navigation
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
+
+    // Sub-tab Navigation (for Settings)
+    const subTabBtns = document.querySelectorAll('.sub-tab-btn');
+    const subTabContents = document.querySelectorAll('.sub-tab-content');
+
+    const resetEducationFontSizesBtn = document.getElementById('resetEducationFontSizes');
 
     // Function to switch tabs
     function switchTab(targetTab) {
@@ -131,6 +149,25 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const targetTab = btn.getAttribute('data-tab');
             switchTab(targetTab);
+        });
+    });
+
+    // Sub-tab Navigation Logic
+    function switchSubTab(targetSubTab) {
+        subTabBtns.forEach(b => b.classList.remove('active'));
+        subTabContents.forEach(c => c.classList.remove('active'));
+
+        const targetBtn = document.querySelector(`.sub-tab-btn[data-subtab="${targetSubTab}"]`);
+        if (targetBtn) {
+            targetBtn.classList.add('active');
+            document.getElementById(targetSubTab + 'SubTab').classList.add('active');
+        }
+    }
+
+    subTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetSubTab = btn.getAttribute('data-subtab');
+            switchSubTab(targetSubTab);
         });
     });
 
@@ -655,23 +692,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 firstLine.style.alignItems = 'baseline';
                 firstLine.style.flexWrap = 'wrap';
 
-                // Get font sizes (using experience sizing for better fit or skillsContent?)
-                // User didn't specify distinct sizing, but we can reuse some.
+                // Get custom font sizes
                 const sizes = getFontSizes();
-                const baseSize = sizes.skillsContent || 0.95;
+                const institutionSize = sizes.educationInstitution || 0.95;
+                const degreeSize = sizes.educationDegree || 0.95;
+                const dateSize = sizes.educationDate || 0.85;
+                const descriptionSize = sizes.educationDescription || 0.9;
 
                 // HTML Construction
                 let html = '';
                 if (edu.institution) {
-                    html += `<strong style="color: #2c3e50; font-size: ${baseSize}rem;">${edu.institution}</strong>`;
+                    html += `<strong style="color: #2c3e50; font-size: ${institutionSize}rem;">${edu.institution}</strong>`;
                 }
                 if (edu.degree) {
                     const sep = edu.institution ? '<span style="margin: 0 0.5rem; color: #ccc;">|</span>' : '';
-                    html += `${sep}<span style="color: #333; font-size: ${baseSize}rem;">${edu.degree}</span>`;
+                    html += `${sep}<span style="color: #333; font-size: ${degreeSize}rem;">${edu.degree}</span>`;
                 }
                 if (edu.date) {
                     const sep = (edu.institution || edu.degree) ? '<span style="margin: 0 0.5rem; color: #ccc;">|</span>' : '';
-                    html += `${sep}<span style="color: #666; font-style: italic; font-size: ${baseSize * 0.9}rem;">${edu.date}</span>`;
+                    html += `${sep}<span style="color: #666; font-style: italic; font-size: ${dateSize}rem;">${edu.date}</span>`;
                 }
                 firstLine.innerHTML = html;
                 eduDiv.appendChild(firstLine);
@@ -687,12 +726,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     bullet.textContent = '•';
                     bullet.style.marginRight = '0.5rem';
                     bullet.style.color = '#333';
-                    bullet.style.fontSize = `${baseSize}rem`;
+                    bullet.style.fontSize = `${descriptionSize}rem`;
                     secondLine.appendChild(bullet);
 
                     const descSpan = document.createElement('span');
                     descSpan.style.color = '#444';
-                    descSpan.style.fontSize = `${baseSize}rem`;
+                    descSpan.style.fontSize = `${descriptionSize}rem`;
                     descSpan.textContent = edu.description;
                     secondLine.appendChild(descSpan);
 
@@ -799,6 +838,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset button
     if (resetFontSizesBtn) {
         resetFontSizesBtn.addEventListener('click', resetFontSizes);
+    }
+
+    // Reset Education Font Sizes
+    function resetEducationFontSizes() {
+        const educationKeys = ['educationInstitution', 'educationDegree', 'educationDate', 'educationDescription'];
+        educationKeys.forEach(key => {
+            if (fontSizeInputs[key]) {
+                fontSizeInputs[key].value = defaultFontSizes[key];
+                updateFontSizeDisplay(key, defaultFontSizes[key]);
+            }
+        });
+        const sizes = getFontSizes();
+        applyFontSizes(sizes);
+        saveStatus.textContent = "Cambios sin guardar...";
+    }
+
+    if (resetEducationFontSizesBtn) {
+        resetEducationFontSizesBtn.addEventListener('click', resetEducationFontSizes);
     }
 
 
