@@ -39,6 +39,7 @@ MiCarpetaCV/
 - ✅ Gestión automática del archivo de datos
 - ✅ Portátil - puedes moverlo a cualquier carpeta
 - ✅ Todos los datos se guardan localmente
+- ✅ **Panel de Control**: Muestra una consola con logs y estado del sistema
 
 ## 🔧 Solución de Problemas
 
@@ -55,7 +56,8 @@ MiCarpetaCV/
 
 ## 📝 Notas Importantes
 
-1. **Una instancia a la vez**: Solo ejecuta una copia del programa a la vez
-2. **Puerto 5000**: El programa usa el puerto 5000, asegúrate de que esté disponible
-3. **Datos locales**: Todos los datos se guardan localmente en `cv_data.json`
-4. **Respaldo**: Haz copias de seguridad de `cv_data.json` si tienes datos importantes
+1. **Consola activa**: Mantén abierta la ventana negra (consola) mientras uses el programa. Si la cierras, la aplicación terminará.
+2. **Una instancia a la vez**: Solo ejecuta una copia del programa a la vez
+3. **Puerto 5000**: El programa usa el puerto 5000, asegúrate de que esté disponible
+4. **Datos locales**: Todos los datos se guardan localmente en `cv_data.json`
+5. **Respaldo**: Haz copias de seguridad de `cv_data.json` si tienes datos importantes

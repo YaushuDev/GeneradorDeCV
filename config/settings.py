@@ -22,6 +22,7 @@ class Config:
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     
     CV_DATA_FILE = os.path.join(BASE_DIR, 'cv_data.json')
+    PROMPTS_DATA_FILE = os.path.join(BASE_DIR, 'prompts_data.json')
     
     # Configuración de PDF
     PDF_PAGE_SIZE = 'letter'

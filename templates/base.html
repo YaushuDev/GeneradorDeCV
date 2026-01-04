@@ -35,14 +35,38 @@
                         <span class="nav-text">Generador de CV</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/json-editor" class="nav-link {% if request.path == '/json-editor' %}active{% endif %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                <li class="nav-item-dropdown">
+                    <div class="nav-link dropdown-toggle" style="cursor: pointer; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="nav-text">Información</span>
+                        </div>
+                        <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;">
+                            <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
-                        <span class="nav-text">Editor JSON</span>
-                    </a>
+                    </div>
+                    <ul class="dropdown-menu"
+                        style="display: none; list-style: none; padding-left: 0; margin-top: 0.5rem; background-color: rgba(0,0,0,0.05); border-radius: 8px;">
+                        <li>
+                            <a href="/json-editor"
+                                class="nav-link {% if request.path == '/json-editor' %}active{% endif %}"
+                                style="padding-left: 3rem; font-size: 0.95em;">
+                                <span class="nav-text">Editor JSON</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/prompt-ia" class="nav-link {% if request.path == '/prompt-ia' %}active{% endif %}"
+                                style="padding-left: 3rem; font-size: 0.95em;">
+                                <span class="nav-text">Prompt IA</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
@@ -99,6 +123,34 @@
                     text.textContent = 'Contraer';
                 }
             }
+
+            // Dropdown Logic
+            const dropdowns = document.querySelectorAll('.nav-item-dropdown');
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                const arrow = dropdown.querySelector('.dropdown-arrow');
+                const links = menu.querySelectorAll('a');
+
+                // Check if any child is active to auto-expand
+                let isActive = false;
+                links.forEach(link => {
+                    if (link.classList.contains('active')) {
+                        isActive = true;
+                    }
+                });
+
+                if (isActive) {
+                    menu.style.display = 'block';
+                    if (arrow) arrow.style.transform = 'rotate(180deg)';
+                }
+
+                toggle.addEventListener('click', () => {
+                    const isVisible = menu.style.display === 'block';
+                    menu.style.display = isVisible ? 'none' : 'block';
+                    if (arrow) arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+                });
+            });
 
         });
     </script>

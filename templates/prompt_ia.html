@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>🤖 Prompt IA</h1>
+    <p class="text-muted">Escribe un prompt y cópialo junto con tu JSON para usarlo con una IA.</p>
+</header>
+
+<div class="card">
+    <div class="prompt-container"
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
+
+        <!-- Columna Izquierda: Prompt y JSON -->
+        <div class="content-column"
+            style="display: flex; flex-direction: column; gap: 1rem; max-height: 80vh; overflow-y: auto; padding-right: 0.5rem;">
+
+            <!-- Área del Prompt -->
+            <div>
+                <label for="promptInput"
+                    style="font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    Tu Prompt:
+                </label>
+                <textarea id="promptInput" class="json-editor"
+                    placeholder="Escribe aquí tus instrucciones para la IA..."
+                    style="height: 150px; overflow-y: auto; resize: vertical; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-family: 'Inter', sans-serif;"></textarea>
+            </div>
+
+            <!-- Información del Puesto -->
+            <div>
+                <label for="jobInfoInput"
+                    style="font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    Información del Puesto:
+                </label>
+                <textarea id="jobInfoInput" class="json-editor"
+                    placeholder="Pega aquí la descripción del puesto de trabajo..."
+                    style="height: 150px; overflow-y: auto; resize: vertical; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-family: 'Inter', sans-serif;"></textarea>
+            </div>
+
+            <!-- Visor del JSON -->
+            <div>
+                <label for="jsonEditor" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Datos del CV
+                    (JSON):</label>
+                <textarea id="jsonEditor" class="json-editor" placeholder="Cargando JSON..."
+                    style="height: 300px; overflow-y: auto; resize: vertical; font-family: 'Courier New', monospace;"></textarea>
+            </div>
+
+        </div>
+
+        <!-- Columna Derecha: Acciones -->
+        <div class="actions-column" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div
+                style="background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%); padding: 1.5rem; border-radius: 12px; color: white;">
+                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; font-weight: 600;">Acciones IA</h3>
+                <p style="margin: 0; font-size: 0.85rem; opacity: 0.9;">Combina y copia para usar</p>
+            </div>
+
+            <button id="savePromptBtn" class="btn-add-skill"
+                style="background: #3b82f6; width: 100%; justify-content: center; padding: 1rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                Guardar Prompt e Info
+            </button>
+
+            <button id="copyCombinedBtn" class="btn-add-skill"
+                style="background: #10b981; width: 100%; justify-content: center; padding: 1rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copiar Todo (3)
+            </button>
+
+            <button id="reloadJsonBtn" class="btn-add-skill"
+                style="background: #6b7280; width: 100%; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+                Recargar JSON
+            </button>
+
+            <!-- Separador visual -->
+            <div style="border-top: 2px solid #e2e8f0; margin: 1.5rem 0;"></div>
+
+            <!-- Botón de borrar separado -->
+            <button id="clearJobInfoBtn" class="btn-add-skill"
+                style="background: #ef4444; width: 100%; justify-content: center; padding: 1rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                Borrar Info Puesto
+            </button>
+
+            <div id="actionStatus" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const jsonEditor = document.getElementById('jsonEditor');
+        const promptInput = document.getElementById('promptInput');
+        const jobInfoInput = document.getElementById('jobInfoInput');
+
+        const copyCombinedBtn = document.getElementById('copyCombinedBtn');
+        const savePromptBtn = document.getElementById('savePromptBtn');
+        const clearJobInfoBtn = document.getElementById('clearJobInfoBtn');
+        const reloadJsonBtn = document.getElementById('reloadJsonBtn');
+        const actionStatus = document.getElementById('actionStatus');
+
+        function loadJsonData() {
+            fetch('/get_cv_data')
+                .then(response => response.json())
+                .then(data => {
+                    if (jsonEditor) {
+                        jsonEditor.value = JSON.stringify(data, null, 4);
+                    }
+                })
+                .catch(err => {
+                    console.error('Error loading JSON:', err);
+                    showStatus('Error al cargar JSON', 'error');
+                });
+        }
+
+        function loadSavedPrompt() {
+            fetch('/get_prompt')
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        if (data.prompt && promptInput) {
+                            promptInput.value = data.prompt;
+                        }
+                        if (data.job_info && jobInfoInput) {
+                            jobInfoInput.value = data.job_info;
+                        }
+                    }
+                })
+                .catch(err => console.error('Error loading saved prompt:', err));
+        }
+
+        function showStatus(message, type) {
+            if (actionStatus) {
+                actionStatus.textContent = message;
+                actionStatus.className = `json-status ${type}`; // Reusing existing classes if possible, or plain css
+                // Fallback styling if class doesn't exist or specific override
+                actionStatus.style.padding = '10px';
+                actionStatus.style.borderRadius = '5px';
+                actionStatus.style.marginTop = '10px';
+                actionStatus.style.fontWeight = '500';
+
+                if (type === 'success') {
+                    actionStatus.style.backgroundColor = '#d1fae5';
+                    actionStatus.style.color = '#065f46';
+                } else if (type === 'error') {
+                    actionStatus.style.backgroundColor = '#fee2e2';
+                    actionStatus.style.color = '#991b1b';
+                }
+
+                actionStatus.style.display = 'block';
+
+                setTimeout(() => {
+                    actionStatus.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        if (copyCombinedBtn) {
+            copyCombinedBtn.addEventListener('click', async () => {
+                try {
+                    const promptText = promptInput.value;
+                    const jobInfoText = jobInfoInput.value;
+                    const jsonText = jsonEditor.value;
+
+                    let combinedText = '';
+                    if (promptText) combinedText += `PROMPT:\n${promptText}\n\n`;
+                    if (jobInfoText) combinedText += `INFORMACIÓN DEL PUESTO:\n${jobInfoText}\n\n`;
+                    combinedText += `DATOS ACTUALES (JSON):\n${jsonText}`;
+
+                    await navigator.clipboard.writeText(combinedText);
+                    showStatus('✓ Todo copiado al portapapeles', 'success');
+                } catch (err) {
+                    console.error('Error al copiar:', err);
+                    showStatus('✗ Error al copiar', 'error');
+                }
+            });
+        }
+
+        if (reloadJsonBtn) {
+            reloadJsonBtn.addEventListener('click', () => {
+                loadJsonData();
+                showStatus('✓ JSON recargado', 'success');
+            });
+        }
+
+        if (savePromptBtn) {
+            savePromptBtn.addEventListener('click', () => {
+                const promptText = promptInput.value;
+                const jobInfoText = jobInfoInput.value;
+
+                savePromptBtn.disabled = true;
+                savePromptBtn.style.opacity = '0.7';
+
+                fetch('/save_prompt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: promptText,
+                        job_info: jobInfoText
+                    })
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            showStatus('✓ Guardado correctamente', 'success');
+                        } else {
+                            showStatus('✗ Error al guardar', 'error');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error:', err);
+                        showStatus('✗ Error de conexión', 'error');
+                    })
+                    .finally(() => {
+                        savePromptBtn.disabled = false;
+                        savePromptBtn.style.opacity = '1';
+                    });
+            });
+        }
+
+        if (clearJobInfoBtn) {
+            clearJobInfoBtn.addEventListener('click', () => {
+                jobInfoInput.value = '';
+                // Auto-save the empty state
+                savePromptBtn.click();
+            });
+        }
+        // Load initially
+        loadJsonData();
+        loadSavedPrompt();
+    });
+</script>
+{% endblock %}

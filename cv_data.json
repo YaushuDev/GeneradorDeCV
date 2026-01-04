@@ -1,39 +1,20 @@
 {
-    "fullName": "Viberth Eduardo Gonzalez",
-    "emailUser": "Crucior",
-    "emailDomain": "outlook.com",
-    "phone": "+506 83209884",
-    "location": "Alajuela, AJ",
-    "linkText": "Linkedin",
-    "linkUrl": "https://www.linkedin.com/in/vibertheduardo/",
-    "skillsSectionTitle": "TECHNICAL SKILLS",
-    "skills": [
+    "education": [
         {
-            "title": "Languages & Frameworks",
-            "description": "Python, JavaScript, Selenium, Pandas, Tkinter, OpenPyXL"
-        },
-        {
-            "title": "Databases",
-            "description": "MySQL, PostgreSQL"
-        },
-        {
-            "title": "Version Control & Deployment",
-            "description": "Git, GitHub"
-        },
-        {
-            "title": "Methodologies",
-            "description": "Agile / Scrum, technical documentation, user-centered design"
-        },
-        {
-            "title": "Automation & Integration",
-            "description": "Email automation (SMTP/IMAP, smtplib, imaplib), Excel and file parsing, API integration, data extraction & web scraping, scheduled task execution (Windows Task Scheduler)"
+            "date": "2024 - 2025",
+            "degree": "Software Development Technician",
+            "description": "Extracurricular Activities: Active member of the Computer Science Club; participated in coding competitions and hackathons, achieving top rankings in several events.",
+            "institution": "Cenfotec"
         }
     ],
+    "educationSectionTitle": "EDUCATION",
+    "emailDomain": "outlook.com",
+    "emailUser": "Crucior",
     "experience": [
         {
             "company": "Fruno",
-            "position": "Lead Automation Engineer",
             "duration": "2023 - Present",
+            "position": "Lead Automation Engineer",
             "responsibilities": [
                 "Designed and implemented over 20 process-automation bots across finance, logistics, and operations, fully in Python.",
                 "Built a bank account parser bot that reads, classifies, and summarizes transaction emails into Excel reports sent three times per day, saving over 300 hours per month.",
@@ -44,8 +25,8 @@
         },
         {
             "company": "Rhiscom",
-            "position": "Test Automation Engineer (Walmart Project)",
             "duration": "2020 - 2023",
+            "position": "Test Automation Engineer (Walmart Project)",
             "responsibilities": [
                 "Led the end-to-end automation of checkout system test flows for Walmart stores in Costa Rica, Guatemala, El Salvador, Honduras, and Nicaragua, ensuring consistency and reliability across regional operations.",
                 "Developed and maintained automated test cases that replicated real cash register scenarios — scanning items, applying discounts, processing payments, and validating error handling under different configurations.",
@@ -54,28 +35,47 @@
             ]
         }
     ],
-    "educationSectionTitle": "EDUCATION",
-    "education": [
+    "fontFamily": "Helvetica",
+    "fontSizes": {
+        "contact": 0.9,
+        "educationDate": 0.85,
+        "educationDegree": 0.95,
+        "educationDescription": 0.9,
+        "educationInstitution": 0.95,
+        "experienceBullet": 0.9,
+        "experienceCompany": 1,
+        "experienceDuration": 0.9,
+        "experiencePosition": 0.95,
+        "name": 2.5,
+        "sectionTitle": 1.15,
+        "skillsContent": 0.9
+    },
+    "fullName": "Viberth Eduardo Gonzalez",
+    "linkText": "Linkedin",
+    "linkUrl": "https://www.linkedin.com/in/vibertheduardo/",
+    "location": "Alajuela, AJ",
+    "phone": "+506 83209884",
+    "skills": [
         {
-            "institution": "Cenfotec",
-            "degree": "Software Development Technician",
-            "date": "2024 - 2025",
-            "description": "Extracurricular Activities: Active member of the Computer Science Club; participated in coding competitions and hackathons, achieving top rankings in several events."
+            "description": "Python, JavaScript, Selenium, Pandas, Tkinter, OpenPyXL",
+            "title": "Languages & Frameworks"
+        },
+        {
+            "description": "MySQL, PostgreSQL",
+            "title": "Databases"
+        },
+        {
+            "description": "Git, GitHub",
+            "title": "Version Control & Deployment"
+        },
+        {
+            "description": "Agile / Scrum, technical documentation, user-centered design",
+            "title": "Methodologies"
+        },
+        {
+            "description": "Email automation (SMTP/IMAP, smtplib, imaplib), Excel and file parsing, API integration, data extraction & web scraping, scheduled task execution (Windows Task Scheduler)",
+            "title": "Automation & Integration"
         }
     ],
-    "fontSizes": {
-        "name": 2.5,
-        "contact": 0.9,
-        "sectionTitle": 1.15,
-        "skillsContent": 0.9,
-        "experienceCompany": 1,
-        "experiencePosition": 0.95,
-        "experienceDuration": 0.9,
-        "experienceBullet": 0.9,
-        "educationInstitution": 0.95,
-        "educationDegree": 0.95,
-        "educationDate": 0.85,
-        "educationDescription": 0.9
-    },
-    "fontFamily": "Helvetica"
+    "skillsSectionTitle": "TECHNICAL SKILLS"
 }

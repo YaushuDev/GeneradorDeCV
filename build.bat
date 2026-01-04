@@ -6,7 +6,7 @@ echo.
 echo Generando ejecutable con PyInstaller...
 echo.
 
-.venv\Scripts\pyinstaller.exe --name="GeneradorCV" --onefile --windowed --add-data "templates;templates" --add-data "static;static" --add-data "config;config" --add-data "models;models" --add-data "services;services" --add-data "routes;routes" app.py
+.venv\Scripts\pyinstaller.exe --name="GeneradorCV" --onefile --console --add-data "templates;templates" --add-data "static;static" --add-data "config;config" --add-data "models;models" --add-data "services;services" --add-data "routes;routes" app.py
 
 echo.
 echo ========================================
