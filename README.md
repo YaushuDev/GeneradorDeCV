@@ -104,6 +104,51 @@ run.bat
 
 La aplicación estará disponible en `http://localhost:5000`
 
+### 📦 Generar Ejecutable con PyInstaller
+
+Para crear un ejecutable independiente de la aplicación:
+
+1. Asegúrate de tener PyInstaller instalado:
+```bash
+pip install pyinstaller
+```
+
+2. Genera el ejecutable con el siguiente comando:
+```bash
+.venv\Scripts\pyinstaller.exe --name="GeneradorCV" --onefile --windowed --add-data "templates;templates" --add-data "static;static" --add-data "config;config" --add-data "models;models" --add-data "services;services" --add-data "routes;routes" app.py
+```
+
+**Parámetros explicados:**
+- `--name="GeneradorCV"`: Nombre del ejecutable
+- `--onefile`: Crea un único archivo ejecutable
+- `--windowed`: No muestra la consola (solo la aplicación web)
+- `--add-data`: Incluye carpetas necesarias (templates, static, etc.)
+- `--icon`: Ícono del ejecutable (opcional)
+
+3. El ejecutable se generará en la carpeta `dist/`
+
+4. Para ejecutar, simplemente haz doble clic en `GeneradorCV.exe`
+
+**Nota:** 
+- La aplicación abrirá automáticamente tu navegador predeterminado al ejecutarse.
+- El archivo `cv_data.json` se creará automáticamente en el mismo directorio donde se encuentra el ejecutable.
+- Si el archivo JSON ya existe, la aplicación cargará los datos guardados anteriormente.
+
+### 🔨 Script Rápido para Generar Ejecutable
+
+También puedes crear un archivo `build.bat` con el siguiente contenido:
+
+```batch
+@echo off
+echo Generando ejecutable...
+.venv\Scripts\pyinstaller.exe --name="GeneradorCV" --onefile --windowed --add-data "templates;templates" --add-data "static;static" --add-data "config;config" --add-data "models;models" --add-data "services;services" --add-data "routes;routes" app.py
+echo.
+echo Ejecutable generado en la carpeta dist/
+pause
+```
+
+Luego solo ejecuta `build.bat` para generar el ejecutable automáticamente.
+
 ## 📝 Características
 
 - ✅ Editor de CV con interfaz intuitiva

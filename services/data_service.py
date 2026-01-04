@@ -19,6 +19,8 @@ class DataService:
             data_file_path: Ruta al archivo de datos JSON.
         """
         self.data_file_path = data_file_path
+        # Asegurar que el directorio existe
+        os.makedirs(os.path.dirname(data_file_path), exist_ok=True)
     
     def load(self) -> CVData:
         """

@@ -3,6 +3,7 @@ Configuración de la aplicación.
 Centraliza todas las configuraciones para facilitar el mantenimiento.
 """
 import os
+import sys
 
 class Config:
     """Configuración base de la aplicación."""
@@ -12,7 +13,14 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
     
     # Configuración de archivos
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Detectar si estamos ejecutando desde PyInstaller
+    if getattr(sys, 'frozen', False):
+        # Si está empaquetado, usar el directorio del ejecutable
+        BASE_DIR = os.path.dirname(sys.executable)
+    else:
+        # Si está en desarrollo, usar el directorio del proyecto
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
     CV_DATA_FILE = os.path.join(BASE_DIR, 'cv_data.json')
     
     # Configuración de PDF
