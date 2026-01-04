@@ -71,7 +71,11 @@
         "experienceCompany": 1,
         "experiencePosition": 0.95,
         "experienceDuration": 0.9,
-        "experienceBullet": 0.9
+        "experienceBullet": 0.9,
+        "educationInstitution": 0.95,
+        "educationDegree": 0.95,
+        "educationDate": 0.85,
+        "educationDescription": 0.9
     },
     "fontFamily": "Helvetica"
 }

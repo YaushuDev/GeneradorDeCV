@@ -8,7 +8,7 @@
 
 <div class="card">
     <div class="json-editor-container"
-        style="display: grid; grid-template-columns: 1fr 300px; gap: 1.5rem; align-items: start;">
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
         <!-- Columna Izquierda: Visor del JSON -->
         <div class="json-viewer-column">
             <div style="margin-bottom: 1rem;">
@@ -18,7 +18,8 @@
                 </p>
             </div>
 
-            <textarea id="jsonEditor" class="json-editor" placeholder="Cargando JSON..."></textarea>
+            <textarea id="jsonEditor" class="json-editor" placeholder="Cargando JSON..."
+                style="height: 600px; overflow-y: auto; resize: vertical;"></textarea>
 
             <div id="jsonStatus" style="display: none; margin-top: 1rem;"></div>
         </div>
@@ -51,23 +52,15 @@
                 Guardar JSON
             </button>
 
-            <div style="background: #f3f4f6; padding: 1.25rem; border-radius: 10px; border-left: 4px solid #667eea;">
-                <h4 style="margin: 0 0 0.75rem 0; font-size: 0.95rem; font-weight: 600; color: #1f2937;">💡 Consejos
-                </h4>
-                <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.85rem; color: #4b5563; line-height: 1.6;">
-                    <li>Usa <code
-                            style="background: #e5e7eb; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.8rem;">Ctrl+F</code>
-                        para buscar</li>
-                    <li>Verifica la sintaxis antes de guardar</li>
-                    <li>Recarga si necesitas deshacer cambios</li>
-                </ul>
-            </div>
-
-            <div
-                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 1rem; border-radius: 10px; color: white; font-size: 0.85rem; text-align: center;">
-                <strong>⚡ Atajos:</strong><br>
-                <span style="opacity: 0.95;">Ctrl+S para guardar rápido</span>
-            </div>
+            <button id="copyJsonBtn" class="btn-add-skill"
+                style="background: #10b981; width: 100%; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copiar JSON
+            </button>
         </div>
     </div>
 </div>
@@ -77,6 +70,7 @@
         const jsonEditor = document.getElementById('jsonEditor');
         const saveJsonBtn = document.getElementById('saveJsonBtn');
         const reloadJsonBtn = document.getElementById('reloadJsonBtn');
+        const copyJsonBtn = document.getElementById('copyJsonBtn');
         const jsonStatus = document.getElementById('jsonStatus');
 
         // JSON Editor Functions
@@ -150,6 +144,19 @@
             reloadJsonBtn.addEventListener('click', () => {
                 loadJsonEditor();
                 showJsonStatus('✓ JSON recargado', 'success');
+            });
+        }
+
+        if (copyJsonBtn) {
+            copyJsonBtn.addEventListener('click', async () => {
+                try {
+                    const jsonText = jsonEditor.value;
+                    await navigator.clipboard.writeText(jsonText);
+                    showJsonStatus('✓ JSON copiado al portapapeles', 'success');
+                } catch (err) {
+                    console.error('Error al copiar:', err);
+                    showJsonStatus('✗ Error al copiar JSON', 'error');
+                }
             });
         }
 
