@@ -22,12 +22,6 @@ def settings():
     return render_template('page.html', title="Configuración", content="Ajustes y preferencias aquí.")
 
 
-@general_bp.route('/json-editor')
-def json_editor():
-    """Página del editor JSON."""
-    return render_template('json_editor.html', title="Editor JSON")
-
-
 @general_bp.route('/prompt-ia')
 def prompt_ia():
     """Página de Prompt IA."""
@@ -47,6 +41,30 @@ def save_prompt():
     """Guarda el prompt del usuario."""
     data = request.json
     service = DataService(Config.PROMPTS_DATA_FILE)
+    if service.save_raw(data):
+        return jsonify({"success": True})
+    return jsonify({"success": False}), 500
+
+
+@general_bp.route('/registro-empleo')
+def registro_empleo():
+    """Página de Registro de Empleos."""
+    return render_template('registro_empleo.html', title="Registro Empleo")
+
+
+@general_bp.route('/get_empleos', methods=['GET'])
+def get_empleos():
+    """Recupera los empleos guardados."""
+    service = DataService(Config.EMPLEOS_DATA_FILE)
+    data = service.load_raw()
+    return jsonify(data)
+
+
+@general_bp.route('/save_empleos', methods=['POST'])
+def save_empleos():
+    """Guarda los empleos del usuario."""
+    data = request.json
+    service = DataService(Config.EMPLEOS_DATA_FILE)
     if service.save_raw(data):
         return jsonify({"success": True})
     return jsonify({"success": False}), 500

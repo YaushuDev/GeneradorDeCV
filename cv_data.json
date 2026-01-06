@@ -1,38 +1,67 @@
 {
-    "education": [
-        {
-            "date": "2024 - 2025",
-            "degree": "Software Development Technician",
-            "description": "Extracurricular Activities: Active member of the Computer Science Club; participated in coding competitions and hackathons, achieving top rankings in several events.",
-            "institution": "Cenfotec"
-        }
-    ],
-    "educationSectionTitle": "EDUCATION",
-    "emailDomain": "outlook.com",
+    "fullName": "Viberth Eduardo Gonzalez",
     "emailUser": "Crucior",
+    "emailDomain": "outlook.com",
+    "phone": "+506 83209884",
+    "location": "Alajuela, AJ",
+    "linkText": "Linkedin",
+    "linkUrl": "[https://www.linkedin.com/in/vibertheduardo/](https://www.linkedin.com/in/vibertheduardo/)",
+    "skillsSectionTitle": "TECHNICAL SKILLS",
+    "educationSectionTitle": "EDUCATION",
     "experience": [
         {
-            "company": "Fruno",
-            "duration": "2023 - Present",
-            "position": "Lead Automation Engineer",
+            "position": "Senior Frontend & Automation Engineer",
+            "duration": "2022 - Present",
             "responsibilities": [
-                "Designed and implemented over 20 process-automation bots across finance, logistics, and operations, fully in Python.",
-                "Built a bank account parser bot that reads, classifies, and summarizes transaction emails into Excel reports sent three times per day, saving over 300 hours per month.",
-                "Created a mass file-download automation handling up to 5,000 files per day, cutting 80 hours of manual work weekly and reducing the workload from three employees to one.",
-                "Led requirement gathering and UX alignment across three departments, ensuring automations felt natural and integrated into users' workflows.",
-                "Connected multiple automations to databases for dynamic reading and writing, daily metric generation, and alert systems."
+                "Built and maintained frontend interfaces using React and modern JavaScript (ES6+), focusing on reusable components and clean architecture.",
+                "Integrated frontend applications with RESTful APIs to support internal platforms and automation-driven systems.",
+                "Developed responsive UI layouts using HTML5, CSS3, and utility-first styling approaches aligned with Tailwind/Bootstrap principles.",
+                "Collaborated with backend engineers and stakeholders to translate business requirements into scalable UI solutions.",
+                "Optimized frontend performance and reliability by refactoring components and improving client-side logic.",
+                "Applied Git-based workflows and participated in code reviews to ensure code quality and secure development practices."
             ]
         },
         {
-            "company": "Rhiscom",
-            "duration": "2020 - 2023",
-            "position": "Test Automation Engineer (Walmart Project)",
+            "position": "QA Automation & Frontend Support Engineer",
+            "duration": "2020 - 2022",
             "responsibilities": [
-                "Led the end-to-end automation of checkout system test flows for Walmart stores in Costa Rica, Guatemala, El Salvador, Honduras, and Nicaragua, ensuring consistency and reliability across regional operations.",
-                "Developed and maintained automated test cases that replicated real cash register scenarios — scanning items, applying discounts, processing payments, and validating error handling under different configurations.",
-                "Produced detailed documentation of test flows, bug reports, and technical recommendations for system improvements, directly supporting Walmart’s QA and DevOps teams.",
-                "Collaborated with international teams under tight deadlines, delivering measurable quality improvements across multiple production environments."
+                "Automated UI and functional test scenarios using JavaScript-based testing tools and browser automation frameworks.",
+                "Validated frontend behavior, usability, and responsiveness across different environments and browsers.",
+                "Worked closely with developers to troubleshoot UI defects and improve overall user experience.",
+                "Integrated automated tests into development workflows to support regression testing and release stability.",
+                "Reviewed frontend changes for accessibility, UI consistency, and adherence to best practices.",
+                "Supported agile teams by providing fast feedback on UI quality and application behavior."
             ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "Cenfotec",
+            "degree": "Software Engenier",
+            "date": "",
+            "description": "Formal education in software engineering with emphasis on web development, programming fundamentals, and engineering best practices, including frontend architectures and application development projects."
+        }
+    ],
+    "skills": [
+        {
+            "title": "JavaScript (ES6+)",
+            "description": "Strong experience developing frontend logic using modern JavaScript features for scalable and maintainable web applications."
+        },
+        {
+            "title": "React",
+            "description": "Building component-based user interfaces, managing state, and integrating frontend applications with RESTful services."
+        },
+        {
+            "title": "Responsive UI Development",
+            "description": "Designing responsive interfaces using HTML5, CSS3, and CSS frameworks such as Tailwind CSS and Bootstrap."
+        },
+        {
+            "title": "REST API Integration",
+            "description": "Consuming and integrating RESTful APIs within frontend applications to enable dynamic data-driven UIs."
+        },
+        {
+            "title": "Frontend Testing & QA",
+            "description": "Experience with automated testing concepts, unit and integration testing, and UI validation to ensure application quality and reliability."
         }
     ],
     "fontFamily": "Helvetica",
@@ -46,36 +75,8 @@
         "experienceCompany": 1,
         "experienceDuration": 0.9,
         "experiencePosition": 0.95,
-        "name": 2.5,
+        "name": 2.4,
         "sectionTitle": 1.15,
         "skillsContent": 0.9
-    },
-    "fullName": "Viberth Eduardo Gonzalez",
-    "linkText": "Linkedin",
-    "linkUrl": "https://www.linkedin.com/in/vibertheduardo/",
-    "location": "Alajuela, AJ",
-    "phone": "+506 83209884",
-    "skills": [
-        {
-            "description": "Python, JavaScript, Selenium, Pandas, Tkinter, OpenPyXL",
-            "title": "Languages & Frameworks"
-        },
-        {
-            "description": "MySQL, PostgreSQL",
-            "title": "Databases"
-        },
-        {
-            "description": "Git, GitHub",
-            "title": "Version Control & Deployment"
-        },
-        {
-            "description": "Agile / Scrum, technical documentation, user-centered design",
-            "title": "Methodologies"
-        },
-        {
-            "description": "Email automation (SMTP/IMAP, smtplib, imaplib), Excel and file parsing, API integration, data extraction & web scraping, scheduled task execution (Windows Task Scheduler)",
-            "title": "Automation & Integration"
-        }
-    ],
-    "skillsSectionTitle": "TECHNICAL SKILLS"
+    }
 }

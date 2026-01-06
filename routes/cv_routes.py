@@ -4,6 +4,7 @@ Maneja las peticiones HTTP para el generador de CV.
 """
 from flask import Blueprint, render_template, request, jsonify, send_file
 import traceback
+import re
 from services.data_service import DataService
 from services.pdf_service import PDFService
 from models.cv_data import CVData
@@ -67,11 +68,22 @@ def generate_pdf():
         # Generar PDF con font sizes personalizados
         buffer = pdf_service.generate(cv_data, font_sizes)
         
+        # Generar nombre del archivo
+        full_name = cv_data.full_name.strip()
+        if full_name:
+            # Eliminar espacios y caracteres no alfanuméricos simples si se desea "todo junto"
+            # El usuario pidió "ViberthEduardoCV.pdf", así que quitamos espacios.
+            # También es buena práctica sanitizar un poco para evitar caracteres inválidos en nombres de archivo.
+            cleaned_name = re.sub(r'[^a-zA-Z0-9]', '', full_name)
+            filename = f"{cleaned_name}CV.pdf"
+        else:
+            filename = 'mi_cv.pdf'
+
         # Enviar archivo
         return send_file(
             buffer,
             as_attachment=True,
-            download_name='mi_cv.pdf',
+            download_name=filename,
             mimetype='application/pdf'
         )
     

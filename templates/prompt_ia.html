@@ -12,36 +12,146 @@
 
         <!-- Columna Izquierda: Prompt y JSON -->
         <div class="content-column"
-            style="display: flex; flex-direction: column; gap: 1rem; max-height: 80vh; overflow-y: auto; padding-right: 0.5rem;">
+            style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 80vh; overflow-y: auto; padding-right: 0.5rem;">
 
-            <!-- Área del Prompt -->
-            <div>
-                <label for="promptInput"
-                    style="font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-                    Tu Prompt:
-                </label>
-                <textarea id="promptInput" class="json-editor"
-                    placeholder="Escribe aquí tus instrucciones para la IA..."
-                    style="height: 150px; overflow-y: auto; resize: vertical; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-family: 'Inter', sans-serif;"></textarea>
+            <style>
+                .accordion-item {
+                    border: 1px solid #e2e8f0;
+                    border-radius: 8px;
+                    background: white;
+                    overflow: hidden;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                }
+
+                .accordion-header {
+                    background: #f8fafc;
+                    padding: 1rem;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-weight: 600;
+                    color: #475569;
+                    transition: all 0.2s ease;
+                    user-select: none;
+                }
+
+                .accordion-header:hover {
+                    background: #f1f5f9;
+                    color: #1e293b;
+                }
+
+                .accordion-header.active {
+                    background: #e2e8f0;
+                    color: #0f172a;
+                }
+
+                .accordion-content {
+                    display: none;
+                    padding: 1rem;
+                    border-top: 1px solid #e2e8f0;
+                    background: #fff;
+                }
+
+                .accordion-content.open {
+                    display: block;
+                    animation: slideDown 0.3s ease-out;
+                }
+
+                .accordion-chev {
+                    transition: transform 0.3s ease;
+                }
+
+                .accordion-header.active .accordion-chev {
+                    transform: rotate(180deg);
+                }
+
+                @keyframes slideDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-10px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            </style>
+
+            <!-- 1. Tu Prompt -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('promptSection', this)">
+                    <span>Tu Prompt</span>
+                    <svg class="accordion-chev" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div id="promptSection" class="accordion-content">
+                    <textarea id="promptInput" class="json-editor"
+                        placeholder="Escribe aquí tus instrucciones para la IA..."
+                        style="height: 150px; overflow-y: auto; resize: vertical; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-family: 'Inter', sans-serif;"></textarea>
+                </div>
             </div>
 
-            <!-- Información del Puesto -->
-            <div>
-                <label for="jobInfoInput"
-                    style="font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-                    Información del Puesto:
-                </label>
-                <textarea id="jobInfoInput" class="json-editor"
-                    placeholder="Pega aquí la descripción del puesto de trabajo..."
-                    style="height: 150px; overflow-y: auto; resize: vertical; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-family: 'Inter', sans-serif;"></textarea>
+            <!-- 2. Información del Puesto -->
+            <div class="accordion-item">
+                <div class="accordion-header active" onclick="toggleAccordion('jobInfoSection', this)">
+                    <span>Información del Puesto</span>
+                    <svg class="accordion-chev" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div id="jobInfoSection" class="accordion-content open">
+                    <textarea id="jobInfoInput" class="json-editor"
+                        placeholder="Pega aquí la descripción del puesto de trabajo..."
+                        style="height: 150px; overflow-y: auto; resize: vertical; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-family: 'Inter', sans-serif;"></textarea>
+                </div>
             </div>
 
-            <!-- Visor del JSON -->
-            <div>
-                <label for="jsonEditor" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Datos del CV
-                    (JSON):</label>
-                <textarea id="jsonEditor" class="json-editor" placeholder="Cargando JSON..."
-                    style="height: 300px; overflow-y: auto; resize: vertical; font-family: 'Courier New', monospace;"></textarea>
+            <!-- 3. Datos del CV (JSON) -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('jsonSection', this)">
+                    <span>Datos del CV (JSON)</span>
+                    <svg class="accordion-chev" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div id="jsonSection" class="accordion-content">
+                    <textarea id="jsonEditor" class="json-editor" placeholder="Cargando JSON..."
+                        style="height: 300px; overflow-y: auto; resize: vertical; font-family: 'Courier New', monospace; width: 100%; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px;"></textarea>
+                </div>
+            </div>
+
+            <!-- 4. Configuraciones de Tipografía -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('typographySection', this)">
+                    <span>Configuraciones de Tipografía</span>
+                    <svg class="accordion-chev" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div id="typographySection" class="accordion-content">
+                    <div id="typographySettings"
+                        style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; font-family: 'Courier New', monospace; font-size: 0.85rem; color: #64748b;">
+                        <div style="margin-bottom: 0.5rem;"><strong>Familia de fuente:</strong> <span
+                                id="fontFamilyDisplay">-</span></div>
+                        <div><strong>Tamaños de fuente:</strong></div>
+                        <pre id="fontSizesDisplay"
+                            style="margin: 0.5rem 0 0 0; font-size: 0.8rem; color: #475569;">-</pre>
+                        <p style="margin: 0.75rem 0 0 0; font-size: 0.75rem; font-style: italic; color: #94a3b8;">💡
+                            Edita
+                            estos valores en la pestaña "Ajustes" del Generador de CV</p>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -54,7 +164,7 @@
                 <p style="margin: 0; font-size: 0.85rem; opacity: 0.9;">Combina y copia para usar</p>
             </div>
 
-            <button id="savePromptBtn" class="btn-add-skill"
+            <button id="saveAllBtn" class="btn-add-skill"
                 style="background: #3b82f6; width: 100%; justify-content: center; padding: 1rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -62,7 +172,7 @@
                     <polyline points="17 21 17 13 7 13 7 21"></polyline>
                     <polyline points="7 3 7 8 15 8"></polyline>
                 </svg>
-                Guardar Prompt e Info
+                Guardar Todo
             </button>
 
             <button id="copyCombinedBtn" class="btn-add-skill"
@@ -75,14 +185,27 @@
                 Copiar Todo (3)
             </button>
 
-            <button id="reloadJsonBtn" class="btn-add-skill"
-                style="background: #6b7280; width: 100%; justify-content: center;">
+            <button id="formatJsonBtn" class="btn-add-skill"
+                style="background: #f59e0b; width: 100%; justify-content: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="1 4 1 10 7 10"></polyline>
-                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
-                Recargar JSON
+                Formatear JSON
+            </button>
+
+            <button id="partialFormatJsonBtn" class="btn-add-skill"
+                style="background: #8b5cf6; width: 100%; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Formateo Parcial JSON
             </button>
 
             <!-- Separador visual -->
@@ -105,23 +228,88 @@
 </div>
 
 <script>
+    // Expose toggleAccordion to global scope
+    window.toggleAccordion = function (elementId, header) {
+        // Find all accordion contents and headers
+        const allContents = document.querySelectorAll('.accordion-content');
+        const allHeaders = document.querySelectorAll('.accordion-header');
+
+        // Check if the clicked section is already open
+        const isAlreadyOpen = document.getElementById(elementId).classList.contains('open');
+
+        // Close all first
+        allContents.forEach(content => content.classList.remove('open'));
+        allHeaders.forEach(h => h.classList.remove('active'));
+
+        // If it wasn't open, open it now
+        if (!isAlreadyOpen) {
+            document.getElementById(elementId).classList.add('open');
+            header.classList.add('active');
+        }
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
         const jsonEditor = document.getElementById('jsonEditor');
         const promptInput = document.getElementById('promptInput');
         const jobInfoInput = document.getElementById('jobInfoInput');
+        const fontFamilyDisplay = document.getElementById('fontFamilyDisplay');
+        const fontSizesDisplay = document.getElementById('fontSizesDisplay');
 
         const copyCombinedBtn = document.getElementById('copyCombinedBtn');
-        const savePromptBtn = document.getElementById('savePromptBtn');
+        const saveAllBtn = document.getElementById('saveAllBtn');
         const clearJobInfoBtn = document.getElementById('clearJobInfoBtn');
-        const reloadJsonBtn = document.getElementById('reloadJsonBtn');
+        const formatJsonBtn = document.getElementById('formatJsonBtn');
+        const partialFormatJsonBtn = document.getElementById('partialFormatJsonBtn');
         const actionStatus = document.getElementById('actionStatus');
+
+        // Store typography settings separately
+        let typographySettings = {
+            fontFamily: 'Helvetica',
+            fontSizes: {}
+        };
+
+        // Function to filter out typography settings from JSON
+        function filterTypographySettings(data) {
+            const filtered = { ...data };
+            delete filtered.fontFamily;
+            delete filtered.fontSizes;
+            return filtered;
+        }
+
+        // Function to create base JSON structure
+        function getBaseJsonStructure() {
+            return {
+                "fullName": "",
+                "emailUser": "",
+                "emailDomain": "",
+                "phone": "",
+                "location": "",
+                "linkText": "",
+                "linkUrl": "",
+                "skillsSectionTitle": "TECHNICAL SKILLS",
+                "skills": [],
+                "experience": [],
+                "educationSectionTitle": "EDUCATION",
+                "education": []
+            };
+        }
 
         function loadJsonData() {
             fetch('/get_cv_data')
                 .then(response => response.json())
                 .then(data => {
+                    // Store typography settings
+                    if (data.fontFamily) typographySettings.fontFamily = data.fontFamily;
+                    if (data.fontSizes) typographySettings.fontSizes = data.fontSizes;
+
+                    // Display typography settings
+                    if (fontFamilyDisplay) fontFamilyDisplay.textContent = typographySettings.fontFamily;
+                    if (fontSizesDisplay) fontSizesDisplay.textContent = JSON.stringify(typographySettings.fontSizes, null, 2);
+
                     if (jsonEditor) {
-                        jsonEditor.value = JSON.stringify(data, null, 4);
+                        // Filter out typography settings before displaying
+                        const filteredData = filterTypographySettings(data);
+                        jsonEditor.value = JSON.stringify(filteredData, null, 4);
                     }
                 })
                 .catch(err => {
@@ -193,45 +381,125 @@
             });
         }
 
-        if (reloadJsonBtn) {
-            reloadJsonBtn.addEventListener('click', () => {
-                loadJsonData();
-                showStatus('✓ JSON recargado', 'success');
+        if (formatJsonBtn) {
+            formatJsonBtn.addEventListener('click', () => {
+                const baseStructure = getBaseJsonStructure();
+                jsonEditor.value = JSON.stringify(baseStructure, null, 4);
+                showStatus('✓ JSON formateado a estructura base', 'success');
             });
         }
 
-        if (savePromptBtn) {
-            savePromptBtn.addEventListener('click', () => {
-                const promptText = promptInput.value;
-                const jobInfoText = jobInfoInput.value;
+        if (partialFormatJsonBtn) {
+            partialFormatJsonBtn.addEventListener('click', () => {
+                try {
+                    const currentJson = JSON.parse(jsonEditor.value);
+                    const newJson = {};
 
-                savePromptBtn.disabled = true;
-                savePromptBtn.style.opacity = '0.7';
-
-                fetch('/save_prompt', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        prompt: promptText,
-                        job_info: jobInfoText
-                    })
-                })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showStatus('✓ Guardado correctamente', 'success');
-                        } else {
-                            showStatus('✗ Error al guardar', 'error');
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Error:', err);
-                        showStatus('✗ Error de conexión', 'error');
-                    })
-                    .finally(() => {
-                        savePromptBtn.disabled = false;
-                        savePromptBtn.style.opacity = '1';
+                    // 1. Keep Personal Info
+                    const personalKeys = ['fullName', 'emailUser', 'emailDomain', 'phone', 'location', 'linkText', 'linkUrl'];
+                    personalKeys.forEach(key => {
+                        if (currentJson[key] !== undefined) newJson[key] = currentJson[key];
                     });
+
+                    // Keep section titles
+                    if (currentJson.skillsSectionTitle) newJson.skillsSectionTitle = currentJson.skillsSectionTitle;
+                    if (currentJson.educationSectionTitle) newJson.educationSectionTitle = currentJson.educationSectionTitle;
+
+                    // 2. Filter Work Experience (Titles and Period)
+                    if (Array.isArray(currentJson.experience)) {
+                        newJson.experience = currentJson.experience.map(exp => ({
+                            position: exp.position || "",
+                            duration: exp.duration || ""
+                        }));
+                    } else {
+                        newJson.experience = [];
+                    }
+
+                    // 3. Filter Education (Institution, Title, Date)
+                    if (Array.isArray(currentJson.education)) {
+                        newJson.education = currentJson.education.map(edu => ({
+                            institution: edu.institution || "",
+                            degree: edu.degree || "",
+                            date: edu.date || ""
+                        }));
+                    } else {
+                        newJson.education = [];
+                    }
+
+                    // 4. Set Technical Skills (habilidad 1-5)
+                    newJson.skills = [];
+                    for (let i = 1; i <= 5; i++) {
+                        newJson.skills.push({
+                            title: `habilidad ${i}`,
+                            description: ""
+                        });
+                    }
+
+                    jsonEditor.value = JSON.stringify(newJson, null, 4);
+                    showStatus('✓ Formateo Parcial aplicado', 'success');
+
+                } catch (err) {
+                    console.error('Error applying partial format:', err);
+                    showStatus('✗ Error al procesar JSON', 'error');
+                }
+            });
+        }
+
+        if (saveAllBtn) {
+            saveAllBtn.addEventListener('click', () => {
+                try {
+                    const promptText = promptInput.value;
+                    const jobInfoText = jobInfoInput.value;
+                    const jsonText = jsonEditor.value;
+
+                    // Parse and validate JSON
+                    const parsedJson = JSON.parse(jsonText);
+
+                    // Merge typography settings back into the JSON
+                    const completeData = {
+                        ...parsedJson,
+                        fontFamily: typographySettings.fontFamily,
+                        fontSizes: typographySettings.fontSizes
+                    };
+
+                    saveAllBtn.disabled = true;
+                    saveAllBtn.style.opacity = '0.7';
+
+                    // Save both prompt/job info and CV data
+                    Promise.all([
+                        fetch('/save_prompt', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                prompt: promptText,
+                                job_info: jobInfoText
+                            })
+                        }),
+                        fetch('/save_cv_data', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(completeData)
+                        })
+                    ])
+                        .then(responses => Promise.all(responses.map(r => r.json())))
+                        .then(results => {
+                            if (results.every(r => r.success)) {
+                                showStatus('✓ Todo guardado correctamente', 'success');
+                            } else {
+                                showStatus('✗ Error al guardar algunos datos', 'error');
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Error:', err);
+                            showStatus('✗ Error de conexión', 'error');
+                        })
+                        .finally(() => {
+                            saveAllBtn.disabled = false;
+                            saveAllBtn.style.opacity = '1';
+                        });
+                } catch (e) {
+                    showStatus('✗ JSON inválido: ' + e.message, 'error');
+                }
             });
         }
 
@@ -239,7 +507,7 @@
             clearJobInfoBtn.addEventListener('click', () => {
                 jobInfoInput.value = '';
                 // Auto-save the empty state
-                savePromptBtn.click();
+                saveAllBtn.click();
             });
         }
         // Load initially

@@ -1,0 +1,444 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 2rem;">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <h1 style="font-size: 2.5rem; font-weight: 700; color: #1a202c; margin-bottom: 0.5rem;">
+            Registro de Bolsas de Empleo
+        </h1>
+        <p style="color: #718096; font-size: 1.1rem;">
+            Gestiona y organiza las bolsas de empleo de diferentes trabajos
+        </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; height: calc(100vh - 200px);">
+        <!-- Panel de Control - Izquierda -->
+        <div class="card" style="padding: 2rem; display: flex; flex-direction: column;">
+            <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d3748; margin-bottom: 1.5rem;">
+                Panel de Control
+            </h2>
+
+            <div style="flex: 1; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 0.5rem;">
+                <form id="empleoForm">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="nombreEmpresa"
+                            style="display: block; font-weight: 500; color: #4a5568; margin-bottom: 0.5rem;">
+                            Nombre de la Empresa
+                        </label>
+                        <input type="text" id="nombreEmpresa" name="nombreEmpresa"
+                            placeholder="Ej: Google, Microsoft, etc."
+                            style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; transition: all 0.3s;"
+                            required />
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="linkEmpleo"
+                            style="display: block; font-weight: 500; color: #4a5568; margin-bottom: 0.5rem;">
+                            Link de la Bolsa de Empleo <span
+                                style="color: #a0aec0; font-size: 0.9rem;">(Opcional)</span>
+                        </label>
+                        <input type="url" id="linkEmpleo" name="linkEmpleo"
+                            placeholder="https://ejemplo.com/empleo (opcional)"
+                            style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; transition: all 0.3s;" />
+                    </div>
+                    <button type="submit" class="btn-primary"
+                        style="width: 100%; padding: 0.875rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);">
+                        Agregar Empleo
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Lista de Empleos - Derecha -->
+        <div class="card" style="padding: 2rem; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d3748;">
+                    Empleos Registrados
+                </h2>
+                <span id="empleosCount"
+                    style="background: #edf2f7; color: #4a5568; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">
+                    0 empleos
+                </span>
+            </div>
+
+            <div id="empleosList" style="flex: 1; overflow-y: auto; padding-right: 0.5rem;">
+                <!-- Los empleos se cargarán aquí dinámicamente -->
+                <div id="emptyState" style="text-align: center; padding: 3rem 1rem; color: #a0aec0;">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        style="width: 64px; height: 64px; margin: 0 auto 1rem; opacity: 0.5;" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <p style="font-size: 1.1rem; font-weight: 500;">No hay empleos registrados</p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Agrega tu primer empleo usando el formulario</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles del empleo -->
+    <div id="empleoModal" class="modal">
+        <div class="modal-overlay" onclick="window.closeEmpleoModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle" style="font-size: 2rem; font-weight: 700; color: #1a202c; margin: 0;">
+                    Detalles del Empleo
+                </h2>
+                <button class="modal-close" onclick="window.closeEmpleoModal()" title="Cerrar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-field">
+                    <label class="modal-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Nombre de la Empresa
+                    </label>
+                    <div id="modalEmpresa" class="modal-value"></div>
+                </div>
+
+                <div class="modal-field">
+                    <label class="modal-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        Link de la Bolsa de Empleo
+                    </label>
+                    <div id="modalLink" class="modal-value"></div>
+                </div>
+
+                <div class="modal-field">
+                    <label class="modal-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Fecha de Registro
+                    </label>
+                    <div id="modalFecha" class="modal-value"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-close" onclick="window.closeEmpleoModal()">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 16px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    /* Scrollbar personalizado */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a0aec0;
+    }
+
+    .empleo-item {
+        background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s;
+        position: relative;
+    }
+
+    .empleo-item:hover {
+        border-color: #667eea;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .empleo-item h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.75rem;
+    }
+
+    .empleo-item a {
+        color: #667eea;
+        text-decoration: none;
+        font-size: 0.95rem;
+        word-break: break-all;
+        display: block;
+        margin-bottom: 0.75rem;
+    }
+
+    .empleo-item a:hover {
+        text-decoration: underline;
+    }
+
+    .btn-delete {
+        background: #fc8181;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .btn-delete:hover {
+        background: #f56565;
+        transform: scale(1.05);
+    }
+
+    .empleo-fecha {
+        font-size: 0.85rem;
+        color: #718096;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Estilos del Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-content {
+        position: relative;
+        background: white;
+        border-radius: 20px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s ease-out;
+        z-index: 10000;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        border-bottom: 2px solid #e2e8f0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header h2 {
+        color: white !important;
+    }
+
+    .modal-close {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: white;
+    }
+
+    .modal-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+    }
+
+    .modal-body {
+        padding: 2rem;
+    }
+
+    .modal-field {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .modal-field:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .modal-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #4a5568;
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modal-label svg {
+        color: #667eea;
+    }
+
+    .modal-value {
+        font-size: 1.2rem;
+        color: #2d3748;
+        font-weight: 500;
+        word-break: break-word;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+        border-radius: 12px;
+        border: 2px solid #e2e8f0;
+    }
+
+    .modal-value a {
+        color: #667eea;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .modal-value a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+    }
+
+    .modal-footer {
+        padding: 1.5rem 2rem;
+        border-top: 2px solid #e2e8f0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .btn-modal-close {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.875rem 2rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-modal-close:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-view {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-right: 0.5rem;
+    }
+
+    .btn-view:hover {
+        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<script src="{{ url_for('static', filename='js/registro_empleo.js') }}"></script>
+{% endblock %}

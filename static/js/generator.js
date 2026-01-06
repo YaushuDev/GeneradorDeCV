@@ -1083,7 +1083,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'mi_cv.pdf';
+                let filename = 'mi_cv.pdf';
+                if (data.fullName) {
+                    const cleanedName = data.fullName.replace(/[^a-zA-Z0-9]/g, '');
+                    if (cleanedName) {
+                        filename = `${cleanedName}CV.pdf`;
+                    }
+                }
+                a.download = filename;
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
